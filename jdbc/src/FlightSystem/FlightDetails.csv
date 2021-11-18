@@ -1,0 +1,57 @@
+Flight Number,Airline Name,Departure City,Arrival City,Departure Time,Arrival Time,Prize,Capacity
+A101,Air India,Mumbai,Chennai,02:05,03:35,1500,180
+A102,Indigo,Mumbai,Delhi,09:04,10:55,1600,170
+A103,Spicejet,Mumbai,Bengaluru,10:05,11:44,1500,140
+A104,Air India,Mumbai,Ahemdabad,18:03,18:55,1200,120
+A105,Vistara,Mumbai,Kolkata,23:05,00:34,2000,200
+A106,Indigo,Mumbai,Hyderabad,14:06,16:09,2200,110
+A107,Vistara,Mumbai,Goa,11:55,13:05,1800,150
+A108,Air India,Chennai,Delhi,04:05,07:25,2500,120
+A109,Vistara,Chennai,Bengaluru,19:04,20:05,1200,180
+A110,Indigo,Chennai,Ahemdabad,23:05,00:34,1500,190
+A111,Spicejet,Chennai,Kolkata,10:05,11:44,2200,210
+A112,Air India,Chennai,Hyderabad,18:03,18:55,2000,160
+A113,Indigo,Chennai,Goa,11:55,13:05,1700,170
+A114,Air India,Chennai,Mumbai,14:06,16:09,1800,120
+A115,Air India,Delhi,Bengaluru,10:05,11:44,2000,200
+A116,Vistara,Delhi,Ahemdabad,18:03,18:55,2200,110
+A117,Indigo,Delhi,Kolkata,23:05,00:34,1800,150
+A118,Vistara,Delhi,Hyderabad,14:06,16:09,2500,120
+A119,Air India,Delhi,Goa,11:55,13:05,1200,180
+A120,Vistara,Delhi,Mumbai,04:05,07:25,1500,190
+A121,Indigo,Delhi,Chennai,19:04,20:05,2200,210
+A122,Vistara,Goa,Bengaluru,23:05,00:34,2000,110
+A123,Air India,Goa,Ahemdabad,14:06,16:09,2200,150
+A124,Vistara,Goa,Kolkata,11:55,13:05,1800,120
+A125,Indigo,Goa,Hyderabad,04:05,07:25,2500,180
+A126,Spicejet,Goa,Delhi,19:04,20:05,1200,190
+A127,Air India,Goa,Mumbai,23:05,00:34,1500,210
+A128,Indigo,Goa,Chennai,10:05,11:44,2200,160
+A129,Indigo,Ahemdabad,Bengaluru,10:05,11:44,2000,170
+A130,Spicejet,Ahemdabad,Goa,18:03,18:55,2200,120
+A131,Air India,Ahemdabad,Kolkata,23:05,00:34,1800,200
+A132,Indigo,Ahemdabad,Hyderabad,14:06,16:09,2500,110
+A133,Air India,Ahemdabad,Delhi,11:55,13:05,1200,180
+A134,Air India,Ahemdabad,Mumbai,04:05,07:25,1500,190
+A135,Vistara,Ahemdabad,Chennai,19:04,20:05,2200,210
+A136,Air India,Bengaluru,Ahemdabad,14:06,16:09,2500,160
+A137,Indigo,Bengaluru,Goa,11:55,13:05,1200,170
+A138,Indigo,Bengaluru,Kolkata,04:05,07:25,1500,120
+A139,Spicejet,Bengaluru,Hyderabad,19:04,20:05,2200,200
+A140,Air India,Bengaluru,Delhi,23:05,00:34,2000,110
+A141,Indigo,Bengaluru,Mumbai,14:06,16:09,2200,150
+A142,Air India,Bengaluru,Chennai,11:55,13:05,1800,120
+A143,Air India,Kolkata,Ahemdabad,23:05,00:34,1500,180
+A144,Vistara,Kolkata,Goa,10:05,11:44,2200,190
+A145,Air India,Kolkata,Bengaluru,18:03,18:55,2000,210
+A146,Indigo,Kolkata,Hyderabad,11:55,13:05,1700,110
+A147,Indigo,Kolkata,Delhi,14:06,16:09,1800,150
+A148,Spicejet,Kolkata,Mumbai,10:05,11:44,2000,120
+A149,Air India,Kolkata,Chennai,18:03,18:55,2200,200
+A150,Air India,Hyderabad,Ahemdabad,19:04,20:05,2200,110
+A151,Indigo,Hyderabad,Goa,23:05,00:34,2000,150
+A152,Indigo,Hyderabad,Bengaluru,14:06,16:09,2200,120
+A153,Spicejet,Hyderabad,Kolkata,11:55,13:05,1800,180
+A154,Air India,Hyderabad,Delhi,23:05,00:34,1500,110
+A155,Indigo,Hyderabad,Mumbai,10:05,11:44,2200,140
+A156,Air India,Hyderabad,Chennai,18:03,18:55,2000,170
