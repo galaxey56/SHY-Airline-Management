@@ -1,4 +1,6 @@
+package JDBC;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,5 +33,22 @@ public class Helper {
             size++;
         }
         return size;
+    }
+    public static void printResultSet(ResultSet rs) throws SQLException {
+        int count = rs.getMetaData().getColumnCount();
+
+        String colName[] = new String[count];
+        for (int i = 0; i < count; i++) {
+            colName[i] = (String) rs.getMetaData().getColumnLabel(i + 1);
+            System.out.print(" " + colName[i]);
+        }
+        System.out.println("\n----------------------------------------------------------------------------");
+        while (rs.next()) {
+            for (int i = 0; i < count; i++) {
+                Object val = rs.getObject(i + 1);
+                System.out.print(val + " ");
+            }
+            System.out.println();
+        }
     }
 }

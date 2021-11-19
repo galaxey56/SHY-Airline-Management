@@ -14,8 +14,7 @@ public class passengerSQL {
         }
         Passenger passenger = new Passenger(args[1], args[2], Integer.parseInt(args[3]), args[4], args[5]);
         passenger.setId(getTottalNumOfPassengers() + 1);
-        long ticket = (Math.round(Math.random() * 10000));
-        passenger.setTicketNum(passenger.getId() + "-" + ticket);
+        
         System.out.println(passenger.toString());
         insertIntoSQL(passenger);
         return passenger;
@@ -69,6 +68,15 @@ public class passengerSQL {
         }
         Passenger p = Passenger.makePassenger(ans);
         System.out.println(p.toString());
+    }
+
+    public static void updateTicketNum(String ticket, String id) throws SQLException {
+        Connection need = ConnectionEst.establishConnection();
+        String query = ""; //Ticket update in passenger table using his id query 
+        PreparedStatement update = need.prepareStatement(query);
+        update.setString(1, ticket);
+        update.setString(2, id);
+        update.executeUpdate();
     }
 
     public static void update(String args[]) throws SQLException {

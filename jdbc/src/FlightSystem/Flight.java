@@ -3,7 +3,7 @@ package FlightSystem;
 abstract public class Flight {
     protected String flightNumber;
     protected String airline;
-    protected int Capacity;
+    protected int Capacity = 60;
 
     public String getFlightNumber() {
         return flightNumber;
@@ -34,18 +34,16 @@ abstract public class Flight {
         this.airline = airline;
         Capacity = capacity;
     }
-
-    abstract int pricingSystem(int multiplier);
 }
 
-class Reservation extends Flight {
+class travelFlight extends Flight {
     private String departureCity;
     private String arrivalCity;
     private String departureTime;
     private String arrivalTime;
     private int price;
 
-    public Reservation(String flightNumber, String airline, int capacity, String departureCity, String arrivalCity,
+    public travelFlight(String flightNumber, String airline, int capacity, String departureCity, String arrivalCity,
             String departureTime, String arrivalTime, int price) {
         super(flightNumber, airline, capacity);
         this.departureCity = departureCity;
@@ -53,12 +51,6 @@ class Reservation extends Flight {
         this.departureTime = departureTime;
         this.arrivalTime = arrivalTime;
         this.price = price;
-    }
-
-    @Override
-    int pricingSystem(int multiplier) {
-        int bruh = 0;
-        return bruh;
     }
 
 }
