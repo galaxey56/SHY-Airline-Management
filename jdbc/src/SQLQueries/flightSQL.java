@@ -62,7 +62,7 @@ public class flightSQL {
     }
     public static int checkAvailability(String flightNum) throws SQLException{
         Connection need = ConnectionEst.establishConnection();
-        String query = "select capacity from flight where flightNum=?";  //Check table name here 
+        String query = "select count(*) from reservation where flight_no = ? and date = ?"; 
         PreparedStatement runIt = need.prepareStatement(query);
         runIt.setString(1, flightNum);
         ResultSet rs = runIt.executeQuery();

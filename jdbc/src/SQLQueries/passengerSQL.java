@@ -56,6 +56,7 @@ public class passengerSQL {
         System.out.println(p.toString());
     }
 
+    //Sample for update
     public static void searchWithId(int id) throws SQLException {
         Connection need = ConnectionEst.establishConnection();
         String query = "select * from passenger where id = ?";
@@ -69,7 +70,6 @@ public class passengerSQL {
         Passenger p = Passenger.makePassenger(ans);
         System.out.println(p.toString());
     }
-
     public static void updateTicketNum(String ticket, String id) throws SQLException {
         Connection need = ConnectionEst.establishConnection();
         String query = ""; //Ticket update in passenger table using his id query 
@@ -78,7 +78,6 @@ public class passengerSQL {
         update.setString(2, id);
         update.executeUpdate();
     }
-
     public static void update(String args[]) throws SQLException {
         int id = Integer.parseInt(args[3]);
         switch (args[2]) {
