@@ -54,9 +54,9 @@ public class flightSQL {
         ResultSet rs = executableQuery.executeQuery();
         /* hmm galaxy u need to do something here dont forget */
     }
-    public static void updateFlightCapacity(int num) throws SQLException{
+    public static void getFlightCapacity(int num) throws SQLException{
         Connection need = ConnectionEst.establishConnection();
-        String query = ""; //Update the capacity query
+        String query = ""; //Get flight capacity query
         PreparedStatement update = need.prepareStatement(query);
         update.executeUpdate(); 
     }
@@ -72,7 +72,7 @@ public class flightSQL {
     }
     public static void getFlightDetails(String flightNum){
         
-    }
+    }   
 
 }
 
