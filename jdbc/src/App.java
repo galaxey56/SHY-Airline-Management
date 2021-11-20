@@ -4,6 +4,9 @@ import java.sql.ResultSet;
 
 import JDBC.ConnectionEst;
 import JDBC.Helper;
+import PassengersList.Passenger;
+import filemanagment.filreader;
+import SQLQueries.passengerSQL;
 
 public class App {
 
@@ -50,15 +53,21 @@ public class App {
 
     public static void main(String[] args) throws Exception {
         // doOperationA(args);
-        System.out.println(args.length);
+
+        /*
+        Call the below function only once to insert data from csv to mySQL in ur system
+        */
+        // filreader.readfile("src/filemanagment/PassengerDetails.csv"); 
+        passengerSQL.searchWithId(26);
+        // System.out.println(args.length);
         switch (args[0]) {
-        case "-a":
-            insert(args);
+        case "-p":
+            Passenger.passengerOperations(args);
             break;
-        case "-b":
+        case "-f":
             update(args);
             break;
-        case "-c":
+        case "-s":
             search(args);
         default:
             printHelp();

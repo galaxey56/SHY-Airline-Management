@@ -1,5 +1,4 @@
 package FlightSystem;
-
 abstract public class Flight {
     protected String flightNumber;
     protected String airline;
@@ -36,21 +35,4 @@ abstract public class Flight {
     }
 }
 
-class travelFlight extends Flight {
-    private String departureCity;
-    private String arrivalCity;
-    private String departureTime;
-    private String arrivalTime;
-    private int price;
 
-    public travelFlight(String flightNumber, String airline, int capacity, String departureCity, String arrivalCity,
-            String departureTime, String arrivalTime, int price) {
-        super(flightNumber, airline, capacity);
-        this.departureCity = departureCity;
-        this.arrivalCity = arrivalCity;
-        this.departureTime = departureTime;
-        this.arrivalTime = arrivalTime;
-        this.price = price;
-    }
-
-}

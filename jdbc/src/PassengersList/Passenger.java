@@ -1,5 +1,6 @@
 package PassengersList;
 
+import SQLQueries.passengerSQL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -11,6 +12,16 @@ public class Passenger {
     private String phoneNum;
     private String email;
     private String ticketNum = "No tickets booked yet";
+    public static int totalPassengers;
+    
+
+    public static int getTotalPassengers() throws SQLException {
+        return passengerSQL.getTottalNumOfPassengers();
+    }
+
+    public static void setTotalPassengers(int totalPassengers) {
+        Passenger.totalPassengers = totalPassengers;
+    }
 
     public int getId() {
         return id;
@@ -22,9 +33,10 @@ public class Passenger {
 
     @Override
     public String toString() {
-        return "Passenger details: \n" + "ID: " + this.id + "\n" + "Name: " + this.name + "\n" + "Age: " + this.age
-                + "\n" + "Gender: " + this.gender + "\n" + "PhoneNum: " + this.phoneNum + "\n" + "Email: " + this.email
-                + "\n" + "ticketNum: " + this.ticketNum;
+        return "Passenger details: \n------------------------------------------\n" + "ID: " + this.id + "\n" + "Name: "
+                + this.name + "\n" + "Age: " + this.age + "\n" + "Gender: " + this.gender + "\n" + "PhoneNum: "
+                + this.phoneNum + "\n" + "Email: " + this.email + "\n" + "ticketNum: " + this.ticketNum
+                + "\n------------------------------------------";
     }
 
     public String getPhoneNum() {
@@ -55,13 +67,14 @@ public class Passenger {
         this.phoneNum = phoneNum;
     }
 
-    public Passenger(String x) {
+    public Passenger(String x) throws SQLException {
         String values[] = x.split(",");
         this.name = values[0];
         this.gender = values[1];
-        this.age = Integer.valueOf(values[2]);
+        this.age = Integer.parseInt(values[2]);
         this.email = values[3];
         this.phoneNum = values[4];
+        this.id = ++totalPassengers;
     }
 
     public void setTicketNum(String ticketNum) {
@@ -97,6 +110,14 @@ public class Passenger {
         p.setId(rs.getInt(1));
         p.setTicketNum(rs.getString(7));
         return p;
+    }
+
+    public static void passengerOperations(String[] args) throws SQLException {
+        switch (args[1]) {
+        case "-c":
+            passengerSQL.createObject(args);
+            break;
+        }
     }
 
 }

@@ -9,10 +9,10 @@ import java.sql.SQLException;
 
 public class passengerSQL {
     public static Passenger createObject(String args[]) throws SQLException {
-        if (args.length != 6) {
+        if (args.length != 7) {
             System.out.println("Please enter all required values in defined order");
         }
-        Passenger passenger = new Passenger(args[1], args[2], Integer.parseInt(args[3]), args[4], args[5]);
+        Passenger passenger = new Passenger(args[2], args[3], Integer.parseInt(args[4]), args[5], args[6]);
         passenger.setId(getTottalNumOfPassengers() + 1);
         
         System.out.println(passenger.toString());
@@ -39,6 +39,7 @@ public class passengerSQL {
         String query = "select count(*) from passenger";
         PreparedStatement executableQuery = need.prepareStatement(query);
         ResultSet ans = executableQuery.executeQuery();
+        ans.next();
         return ans.getInt(1);
     }
 
@@ -59,7 +60,7 @@ public class passengerSQL {
     //Sample for update
     public static void searchWithId(int id) throws SQLException {
         Connection need = ConnectionEst.establishConnection();
-        String query = "select * from passenger where id = ?";
+        String query = "select * from passenger where passenger_id = ?";
         PreparedStatement executableQuery = need.prepareStatement(query);
         executableQuery.setInt(1, id);
         ResultSet ans = executableQuery.executeQuery();
@@ -97,8 +98,13 @@ public class passengerSQL {
             updateEmail(id, args[4]);
         }
     }
-    private static void updateName(int id, String name){
-        
+    private static void updateName(int id, String name) throws SQLException {
+        Connection need = ConnectionEst.establishConnection();
+        String query = "";               //Update name with id query in passenger table
+        PreparedStatement update = need.prepareStatement(query);
+        update.setString(1, name);
+        update.setInt(2, id);
+        update.executeUpdate();
     }
     private static void updateAge(int id, int age){
 
@@ -111,5 +117,15 @@ public class passengerSQL {
     }
     private static void updateEmail(int id, String email){
         
+    }
+    public static void deletePassenger(int id) throws SQLException {
+        Connection need = ConnectionEst.establishConnection();
+        String query = "";                                      //Delete Query with id in passenger table
+        PreparedStatement delete = need.prepareStatement(query);
+        delete.setInt(1, id);
+        int ans = delete.executeUpdate();
+        if(ans == 1 ){
+            System.out.println("Successfully deleted user Details with id " + id  + " from databse");
+        }
     }
 }

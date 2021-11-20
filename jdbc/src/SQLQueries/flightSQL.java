@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import JDBC.ConnectionEst;
 import JDBC.Helper;
+import FlightSystem.travelFlight;
 
 
 public class flightSQL {
@@ -32,12 +33,12 @@ public class flightSQL {
     }
 
     public static void bookTicket(String id, String flightNum, String date) throws SQLException{
-        int ref = checkAvailability(flightNum);
+        int ref = checkAvailability(flightNum, date);
+        ref = getFlightCapacity(flightNum) - ref;
         if(ref == 0){
             System.out.println("Sorry the flight is fully occupied!!");
             return;
         }
-        updateFlightCapacity(--ref);
         Connection need = ConnectionEst.establishConnection();
         String ticketNum = id + "-" + (Math.round(Math.random() * 10000));
         passengerSQL.updateTicketNum(ticketNum, id);
@@ -54,25 +55,36 @@ public class flightSQL {
         ResultSet rs = executableQuery.executeQuery();
         /* hmm galaxy u need to do something here dont forget */
     }
-    public static void getFlightCapacity(int num) throws SQLException{
+    public static int getFlightCapacity(String flightNum) throws SQLException{
         Connection need = ConnectionEst.establishConnection();
-        String query = ""; //Get flight capacity query
+        String query = ""; //Get capacity from flight table query
         PreparedStatement update = need.prepareStatement(query);
-        update.executeUpdate(); 
+        ResultSet rs = update.executeQuery();
+        rs.next();
+        int ref = rs.getInt(1);
+        return ref;
     }
-    public static int checkAvailability(String flightNum) throws SQLException{
+    public static int checkAvailability(String flightNum, String date) throws SQLException{
         Connection need = ConnectionEst.establishConnection();
         String query = "select count(*) from reservation where flight_no = ? and date = ?"; 
         PreparedStatement runIt = need.prepareStatement(query);
         runIt.setString(1, flightNum);
+        runIt.setString(2, date);
         ResultSet rs = runIt.executeQuery();
         rs.next();
         int ref = rs.getInt(1);
         return ref;
     }
-    public static void getFlightDetails(String flightNum){
-        
-    }   
+    public static void getFlightDetails(String flightNum) throws SQLException {
+        Connection need = ConnectionEst.establishConnection();
+        String query = ""; //Query for flight details from flight table with flight ticket
+        PreparedStatement executableQuery = need.prepareStatement(query);
+        executableQuery.setString(1, flightNum);
+        ResultSet rs = executableQuery.executeQuery();
+        travelFlight ref = travelFlight.convert(rs);
+        ref.toString();
+    }
 
 }
 
+//galaxy lauda
