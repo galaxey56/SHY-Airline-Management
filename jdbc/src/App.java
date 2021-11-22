@@ -19,7 +19,11 @@ public class App {
         pstmt.setInt(2, 19);
         pstmt.setDouble(3, 9.8);
         ResultSet rs = pstmt.executeQuery();
+<<<<<<< HEAD
         // Helper.pagination(Helper.makeList(rs), 1);
+=======
+        // Helper.pagination(Helper.makeList(rs), 1, 0);
+>>>>>>> f16a544a3228931f1036fdac42275a1f9b988404
     }
 
     public static void update(String args[]) throws Exception {
@@ -53,16 +57,21 @@ public class App {
     }
 
     public static void main(String[] args) throws Exception {
-        // doOperationA(args);
 
         /*
         Call the below function only once to insert data from csv to mySQL in ur system
         */
+<<<<<<< HEAD
         // filreader.readfile(); 
         // flightSQL.flightDetailsWithADD("Hyderabad","Chennai","2021-12-27");
         insert();
         // passengerSQL.searchWithId(26);
         // // System.out.println(args.length);
+=======
+        // filreader.readfile("src/filemanagment/PassengerDetails.csv"); 
+        passengerSQL.searchWithId(27);
+        // System.out.println(args.length);
+>>>>>>> f16a544a3228931f1036fdac42275a1f9b988404
         // switch (args[0]) {
         // case "-p":
         //     Passenger.passengerOperations(args);
@@ -76,5 +85,9 @@ public class App {
         //     printHelp();
         //     break;
         // }
+<<<<<<< HEAD
+=======
+        passengerSQL.displayAllPassengers();
+>>>>>>> f16a544a3228931f1036fdac42275a1f9b988404
     }
 }

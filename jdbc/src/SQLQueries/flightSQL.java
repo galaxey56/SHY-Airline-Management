@@ -15,6 +15,7 @@ public class flightSQL {
     public static void flightDetailsWithADD(String arrival, String departure, String date) throws SQLException {
         Connection need = ConnectionEst.establishConnection();
         String query = "select flight_no , airline , departureCity, arrivalCity, departureTime , arrivalTime , price_cal(?,?,?) as price , capacity from flight where arrivalCity = ? and departureCity = ?;";
+    
         PreparedStatement executablStatement = need.prepareStatement(query);
         executablStatement.setString(1, arrival);
         executablStatement.setString(2, departure);
@@ -23,7 +24,7 @@ public class flightSQL {
         executablStatement.setString(5, departure);
         
         ResultSet rs = executablStatement.executeQuery();
-        Helper.printResultSet(rs);
+
         System.out.println("Ticket fare may change based on date of booking");
     }
 
