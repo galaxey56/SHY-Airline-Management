@@ -6,8 +6,8 @@ import java.util.Properties;
 
 public class ConnectionEst {
     final private static String USERNAME = "root";
-    final private static String PASSWORD = "galaxy";   //Give your sql password here
-    final private static String CONNECTION_STRING = "jdbc:mysql://localhost:3306/jdbc_trials";  //jdbc trials is databse name in ur sql command line
+    final private static String PASSWORD = "samyak";   //Give your sql password here
+    final private static String CONNECTION_STRING = "jdbc:mysql://localhost:3306/oops";  //jdbc trials is databse name in ur sql command line
 
     public static Connection establishConnection() throws SQLException{
         Connection conn = null;

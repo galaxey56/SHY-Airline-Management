@@ -12,8 +12,9 @@ import SQLQueries.passengerSQL;
 
 public class filreader {
 
-    public static void readfile (String filename) throws Exception {
+    public static void readfile () throws Exception {
         List<Passenger> passengers = new ArrayList<Passenger>();
+        String filename = "PassengerDetails.csv";
         try {
             // BufferedReader reader= new BufferedReader(new FileReader("student.csv"));
             // String studstring;
@@ -26,6 +27,8 @@ public class filreader {
 
             Passenger.setTotalPassengers(passengerSQL.getTottalNumOfPassengers());
             Path path = Paths.get(filename);
+            System.out.println(Files.exists(path));
+            
             if (Files.exists(path)) {
                 List<String> lines = Files.readAllLines(path);
                 for (String line : lines) {

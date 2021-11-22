@@ -5,18 +5,22 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import JDBC.ConnectionEst;
-import JDBC.Helper;
 import FlightSystem.travelFlight;
 
 
 public class flightSQL {
-    public static void flightDetailsWithADD(String arrival, String departure, String date) throws Exception {
+
+    public static void flightDetailsWithADD(String arrival, String departure, String date) throws SQLException {
         Connection need = ConnectionEst.establishConnection();
-        String query = "call price_cal(?,?,?)"; //check table name here
+        String query = "select flight_no , airline , departureCity, arrivalCity, departureTime , arrivalTime , price_cal(?,?,?) as price , capacity from flight where arrivalCity = ? and departureCity = ?;";
+    
         PreparedStatement executablStatement = need.prepareStatement(query);
         executablStatement.setString(2, arrival);
         executablStatement.setString(1, departure);
         executablStatement.setString(3, date);
+        executablStatement.setString(4, arrival);
+        executablStatement.setString(5, departure);
+        
         ResultSet rs = executablStatement.executeQuery();
         while (rs.next()) {
             String ref = "";
@@ -85,3 +89,21 @@ public class flightSQL {
 }
 
 //galaxy lauda
+/*
+create this function in mysql 
+
+delimiter //
+create function price_cal(departure varchar(40),arrival varchar(40) ,d date)
+returns int
+deterministic
+begin
+declare fprice int;
+if((select DATEDIFF(d,CURDATE())) > 30) then
+select 0.5*price into fprice from flight where arrivalCity = arrival and departureCity = departure;
+else
+select price into fprice from flight where arrivalCity = arrival and departureCity = departure;
+end if;
+return (fprice);
+end //
+delimiter ;
+*/

@@ -1,33 +1,27 @@
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-
 import JDBC.ConnectionEst;
-import JDBC.Helper;
-import PassengersList.Passenger;
-import filemanagment.filreader;
 import SQLQueries.flightSQL;
-import SQLQueries.passengerSQL;
 
 public class App {
 
-    public static void insert(String args[]) throws Exception {
+    public static void insert() throws Exception {
         Connection need = ConnectionEst.establishConnection();
         String stmt = "select * from henlo";
         PreparedStatement pstmt = need.prepareStatement(stmt);
-        // pstmt.setString(1, args[1]);
-        // pstmt.setInt(2, Integer.parseInt(args[2]));
-        // pstmt.setDouble(3, Double.parseDouble(args[3]));
-        ResultSet rs = pstmt.executeQuery();
-        // Helper.pagination(Helper.makeList(rs), 1, 0);
+        pstmt.setString(1, "samyak");
+        pstmt.setInt(2, 19);
+        pstmt.setDouble(3, 9.8);
+        // ResultSet rs = pstmt.executeQuery();
+        // Helper.pagination(Helper.makeList(rs), 1);
     }
 
     public static void update(String args[]) throws Exception {
-        Connection need = ConnectionEst.establishConnection();
+        // Connection need = ConnectionEst.establishConnection();
     }
 
     public static void search(String args[]) throws Exception {
-        Connection need = ConnectionEst.establishConnection();
+        // Connection need = ConnectionEst.establishConnection();
         switch (args[1]) {
         case "-f":
             switch (args[2]) {
@@ -53,13 +47,6 @@ public class App {
     }
 
     public static void main(String[] args) throws Exception {
-
-        /*
-        Call the below function only once to insert data from csv to mySQL in ur system
-        */
-        // filreader.readfile("src/filemanagment/PassengerDetails.csv"); 
-        // passengerSQL.searchWithId(27);
-        // System.out.println(passengerSQL.getMaxIDPassengers());
         flightSQL.flightDetailsWithADD("Chennai", "Hyderabad", "2021-12-27");
         // System.out.println(args.length);
         // switch (args[0]) {
@@ -75,6 +62,5 @@ public class App {
         //     printHelp();
         //     break;
         // }
-        // passengerSQL.displayAllPassengers();
     }
 }
