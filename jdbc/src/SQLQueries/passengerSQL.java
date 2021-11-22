@@ -134,7 +134,7 @@ public class passengerSQL {
     }
     private static void updateMobileNum(int id, String num) throws SQLException{
         Connection need = ConnectionEst.establishConnection();
-        String query = "update passenger set gender= ? where id= ?";               //Update name with id query in passenger table
+        String query = "update passenger set num= ? where id= ?";               //Update name with id query in passenger table
         PreparedStatement update = need.prepareStatement(query);
         update.setString(1, num);
         update.setInt(2, id);
@@ -143,7 +143,7 @@ public class passengerSQL {
     }
     private static void updateEmail(int id, String email) throws SQLException{
         Connection need = ConnectionEst.establishConnection();
-        String query = "update passenger set gender= ? where id= ?";               //Update name with id query in passenger table
+        String query = "update passenger set email= ? where id= ?";               //Update name with id query in passenger table
         PreparedStatement update = need.prepareStatement(query);
         update.setString(1, email);
         update.setInt(2, id);
@@ -157,7 +157,7 @@ public class passengerSQL {
         delete.setInt(1, id);
         int ans = delete.executeUpdate();
         if(ans == 1 ){
-            System.out.println("Successfully deleted user Details with id " + id  + " from databse");
+            System.out.println("Successfully deleted user Details with id " + id  + " from database");
         }
     }
 }
