@@ -18,7 +18,7 @@ public class App {
         // pstmt.setInt(2, Integer.parseInt(args[2]));
         // pstmt.setDouble(3, Double.parseDouble(args[3]));
         ResultSet rs = pstmt.executeQuery();
-        Helper.pagination(Helper.makeList(rs), 1);
+        // Helper.pagination(Helper.makeList(rs), 1, 0);
     }
 
     public static void update(String args[]) throws Exception {
@@ -52,26 +52,26 @@ public class App {
     }
 
     public static void main(String[] args) throws Exception {
-        // doOperationA(args);
 
         /*
         Call the below function only once to insert data from csv to mySQL in ur system
         */
         // filreader.readfile("src/filemanagment/PassengerDetails.csv"); 
-        passengerSQL.searchWithId(26);
+        passengerSQL.searchWithId(27);
         // System.out.println(args.length);
-        switch (args[0]) {
-        case "-p":
-            Passenger.passengerOperations(args);
-            break;
-        case "-f":
-            update(args);
-            break;
-        case "-s":
-            search(args);
-        default:
-            printHelp();
-            break;
-        }
+        // switch (args[0]) {
+        // case "-p":
+        //     Passenger.passengerOperations(args);
+        //     break;
+        // case "-f":
+        //     update(args);
+        //     break;
+        // case "-s":
+        //     search(args);
+        // default:
+        //     printHelp();
+        //     break;
+        // }
+        passengerSQL.displayAllPassengers();
     }
 }

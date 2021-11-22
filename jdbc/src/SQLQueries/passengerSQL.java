@@ -1,6 +1,7 @@
 package SQLQueries;
 
 import JDBC.ConnectionEst;
+import JDBC.Helper;
 import PassengersList.Passenger;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -78,6 +79,13 @@ public class passengerSQL {
         update.setString(1, ticket);
         update.setString(2, id);
         update.executeUpdate();
+    }
+    public static void displayAllPassengers() throws Exception{
+        Connection need = ConnectionEst.establishConnection();
+        String query = "select * from passenger";
+        PreparedStatement runIt = need.prepareStatement(query);
+        ResultSet rs = runIt.executeQuery();
+        Helper.pagination(Helper.makeList(rs), 3, getTottalNumOfPassengers());
     }
     public static void update(String args[]) throws SQLException {
         int id = Integer.parseInt(args[3]);

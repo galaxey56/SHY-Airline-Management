@@ -10,25 +10,15 @@ import FlightSystem.travelFlight;
 
 
 public class flightSQL {
-    public static void flightDetailsWithAD(String arrival, String departure) throws SQLException {
+    public static void flightDetailsWithADD(String arrival, String departure, String date) throws Exception {
         Connection need = ConnectionEst.establishConnection();
-        String query = "select * from flight where arrivalCity=? and departureCity = ?"; //check table name here
-        PreparedStatement executablStatement = need.prepareStatement(query);
-        executablStatement.setString(1, arrival);
-        executablStatement.setString(2, departure);
-        ResultSet rs = executablStatement.executeQuery();
-        Helper.printResultSet(rs);
-        System.out.println("Ticket fare may change based on date of booking");
-    }
-    public static void flightDetailsWithADD(String arrival, String departure, String date) throws SQLException {
-        Connection need = ConnectionEst.establishConnection();
-        String query = "select * from flight where arrivalCity=? and departureCity = ? and date=?"; //check table name here
+        String query = "call price_cal(?,?,?)"; //check table name here
         PreparedStatement executablStatement = need.prepareStatement(query);
         executablStatement.setString(1, arrival);
         executablStatement.setString(2, departure);
         executablStatement.setString(3, date);
         ResultSet rs = executablStatement.executeQuery();
-        Helper.printResultSet(rs);
+
         System.out.println("Ticket fare may change based on date of booking");
     }
 

@@ -6,49 +6,56 @@ import java.util.List;
 
 public class Helper {
     final static int pageLimit = 10;
+    static String header;
+    
 
-    public static List<String> makeList(ResultSet rs) throws Exception {
-        List<String> hello = new ArrayList<String>();
-        while (rs.next()) {
-            hello.add(rs.getString(1) + " " + rs.getInt(2) + " " + rs.getDouble(3));
+    public String getHeader() {
+        return header;
+    }
+
+    public static void setHeader(ResultSet rs) throws SQLException {
+        Helper.header = getHeader(rs);
+    }
+
+    private static String getHeader(ResultSet rs) throws SQLException{
+        int count = rs.getMetaData().getColumnCount();
+        String ref = "";
+        String colName[] = new String[count];
+        for (int i = 0; i < count; i++) {
+            colName[i] = (String) rs.getMetaData().getColumnLabel(i + 1);
+            ref += colName[i] + " ";
         }
+        return ref;
+    }
+    
+    public static List<String> makeList(ResultSet rs) throws Exception {
+        
+        int count = rs.getMetaData().getColumnCount();
+        List<String> hello = new ArrayList<String>();
+        
+        while (rs.next()) {
+            String ref = "";
+            for (int i = 0; i < count; i++) {
+                Object val = rs.getObject(i + 1);
+                ref += val + " ";
+            }
+            hello.add(ref);
+        }
+        setHeader(rs);
         return hello;
     }
 
-    public static void pagination(List<String> rs, int page) throws Exception {
-        int maxPages = 25 / pageLimit + 1;
+    public static void pagination(List<String> rs, int page, int totalPages) throws Exception {
+        int maxPages = totalPages / pageLimit + 1;
         if (page > maxPages) {
             System.out.println("Page limit exceeded");
             return;
         }
-        System.out.println("Displaying page " + (page) + "/" + maxPages);
-        for (int j = 0; j < pageLimit; j++) {
+        System.out.println("Displaying page " + (page) + "/" + maxPages + "\n");
+        System.out.println(header);
+        System.out.println("----------------------------------------------------------------------");
+        for (int j = 0; j < pageLimit && ((page-1)*pageLimit + j) < totalPages; j++) {
             System.out.println(rs.get((page - 1) * pageLimit + j));
-        }
-    }
-
-    public static int getSize(ResultSet rs) throws Exception {
-        int size = 0;
-        while (rs.next()) {
-            size++;
-        }
-        return size;
-    }
-    public static void printResultSet(ResultSet rs) throws SQLException {
-        int count = rs.getMetaData().getColumnCount();
-
-        String colName[] = new String[count];
-        for (int i = 0; i < count; i++) {
-            colName[i] = (String) rs.getMetaData().getColumnLabel(i + 1);
-            System.out.print(" " + colName[i]);
-        }
-        System.out.println("\n----------------------------------------------------------------------------");
-        while (rs.next()) {
-            for (int i = 0; i < count; i++) {
-                Object val = rs.getObject(i + 1);
-                System.out.print(val + " ");
-            }
-            System.out.println();
         }
     }
 }
