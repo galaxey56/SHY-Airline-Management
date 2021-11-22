@@ -100,22 +100,46 @@ public class passengerSQL {
     }
     private static void updateName(int id, String name) throws SQLException {
         Connection need = ConnectionEst.establishConnection();
-        String query = "";               //Update name with id query in passenger table
+        String query = "update passenger set name= ? where id= ?";               //Update name with id query in passenger table
         PreparedStatement update = need.prepareStatement(query);
         update.setString(1, name);
         update.setInt(2, id);
         update.executeUpdate();
     }
-    private static void updateAge(int id, int age){
+    private static void updateAge(int id, int age) throws SQLException{
+        Connection need = ConnectionEst.establishConnection();
+        String query = "update passenger set age= ? where id= ?";               //Update name with id query in passenger table
+        PreparedStatement update = need.prepareStatement(query);
+        update.setInt(1, age);
+        update.setInt(2, id);
+        update.executeUpdate();
 
     }
-    private static void updateGender(int id, String gender){
+    private static void updateGender(int id, String gender) throws SQLException{
+        Connection need = ConnectionEst.establishConnection();
+        String query = "update passenger set gender= ? where id= ?";               //Update name with id query in passenger table
+        PreparedStatement update = need.prepareStatement(query);
+        update.setString(1, gender);
+        update.setInt(2, id);
+        update.executeUpdate();
 
     }
-    private static void updateMobileNum(int id, String num){
+    private static void updateMobileNum(int id, String num) throws SQLException{
+        Connection need = ConnectionEst.establishConnection();
+        String query = "update passenger set gender= ? where id= ?";               //Update name with id query in passenger table
+        PreparedStatement update = need.prepareStatement(query);
+        update.setString(1, num);
+        update.setInt(2, id);
+        update.executeUpdate();
 
     }
-    private static void updateEmail(int id, String email){
+    private static void updateEmail(int id, String email) throws SQLException{
+        Connection need = ConnectionEst.establishConnection();
+        String query = "update passenger set gender= ? where id= ?";               //Update name with id query in passenger table
+        PreparedStatement update = need.prepareStatement(query);
+        update.setString(1, email);
+        update.setInt(2, id);
+        update.executeUpdate();
         
     }
     public static void deletePassenger(int id) throws SQLException {
