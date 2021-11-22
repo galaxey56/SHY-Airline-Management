@@ -2,6 +2,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import JDBC.ConnectionEst;
 import SQLQueries.flightSQL;
+import filemanagment.filreader;
 
 public class App {
 
@@ -47,7 +48,7 @@ public class App {
     }
 
     public static void main(String[] args) throws Exception {
-        flightSQL.flightDetailsWithADD("Chennai", "Hyderabad", "2021-12-27");
+        filreader.readfile("src/filemanagment/PassengerDetails.csv");
         // System.out.println(args.length);
         // switch (args[0]) {
         // case "-p":
