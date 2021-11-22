@@ -1,6 +1,7 @@
 package SQLQueries;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -10,23 +11,17 @@ import FlightSystem.travelFlight;
 
 
 public class flightSQL {
-    public static void flightDetailsWithAD(String arrival, String departure) throws SQLException {
-        Connection need = ConnectionEst.establishConnection();
-        String query = "select * from flight where arrivalCity=? and departureCity = ?"; //check table name here
-        PreparedStatement executablStatement = need.prepareStatement(query);
-        executablStatement.setString(1, arrival);
-        executablStatement.setString(2, departure);
-        ResultSet rs = executablStatement.executeQuery();
-        Helper.printResultSet(rs);
-        System.out.println("Ticket fare may change based on date of booking");
-    }
+
     public static void flightDetailsWithADD(String arrival, String departure, String date) throws SQLException {
         Connection need = ConnectionEst.establishConnection();
-        String query = "select * from flight where arrivalCity=? and departureCity = ? and date=?"; //check table name here
+        String query = "select flight_no , airline , departureCity, arrivalCity, departureTime , arrivalTime , price_cal(?,?,?) as price , capacity from flight where arrivalCity = ? and departureCity = ?;";
         PreparedStatement executablStatement = need.prepareStatement(query);
         executablStatement.setString(1, arrival);
         executablStatement.setString(2, departure);
         executablStatement.setString(3, date);
+        executablStatement.setString(4, arrival);
+        executablStatement.setString(5, departure);
+        
         ResultSet rs = executablStatement.executeQuery();
         Helper.printResultSet(rs);
         System.out.println("Ticket fare may change based on date of booking");
@@ -88,3 +83,21 @@ public class flightSQL {
 }
 
 //galaxy lauda
+/*
+create this function in mysql 
+
+delimiter //
+create function price_cal(departure varchar(40),arrival varchar(40) ,d date)
+returns int
+deterministic
+begin
+declare fprice int;
+if((select DATEDIFF(d,CURDATE())) > 30) then
+select 0.5*price into fprice from flight where arrivalCity = arrival and departureCity = departure;
+else
+select price into fprice from flight where arrivalCity = arrival and departureCity = departure;
+end if;
+return (fprice);
+end //
+delimiter ;
+*/
