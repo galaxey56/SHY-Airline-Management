@@ -33,6 +33,7 @@ public class Helper {
         int count = rs.getMetaData().getColumnCount();
         List<String> hello = new ArrayList<String>();
         
+        setHeader(rs);
         while (rs.next()) {
             String ref = "";
             for (int i = 0; i < count; i++) {
@@ -41,7 +42,6 @@ public class Helper {
             }
             hello.add(ref);
         }
-        setHeader(rs);
         return hello;
     }
 
