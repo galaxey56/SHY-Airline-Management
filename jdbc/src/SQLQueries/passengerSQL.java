@@ -14,7 +14,7 @@ public class passengerSQL {
             System.out.println("Please enter all required values in defined order");
         }
         Passenger passenger = new Passenger(args[2], args[3], Integer.parseInt(args[4]), args[5], args[6]);
-        passenger.setId(getTottalNumOfPassengers() + 1);
+        passenger.setId(getMaxIDPassengers() + 1);
         
         System.out.println(passenger.toString());
         insertIntoSQL(passenger);
@@ -38,6 +38,14 @@ public class passengerSQL {
     public static int getTottalNumOfPassengers() throws SQLException {
         Connection need = ConnectionEst.establishConnection();
         String query = "select count(*) from passenger";
+        PreparedStatement executableQuery = need.prepareStatement(query);
+        ResultSet ans = executableQuery.executeQuery();
+        ans.next();
+        return ans.getInt(1);
+    }
+    public static int getMaxIDPassengers() throws SQLException {
+        Connection need = ConnectionEst.establishConnection();
+        String query = "select max(passenger_id) from passenger";
         PreparedStatement executableQuery = need.prepareStatement(query);
         ResultSet ans = executableQuery.executeQuery();
         ans.next();

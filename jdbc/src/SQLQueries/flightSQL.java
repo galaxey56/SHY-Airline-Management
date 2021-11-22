@@ -14,11 +14,18 @@ public class flightSQL {
         Connection need = ConnectionEst.establishConnection();
         String query = "call price_cal(?,?,?)"; //check table name here
         PreparedStatement executablStatement = need.prepareStatement(query);
-        executablStatement.setString(1, arrival);
-        executablStatement.setString(2, departure);
+        executablStatement.setString(2, arrival);
+        executablStatement.setString(1, departure);
         executablStatement.setString(3, date);
         ResultSet rs = executablStatement.executeQuery();
-
+        while (rs.next()) {
+            String ref = "";
+            for (int i = 0; i < 8; i++) {
+                Object val = rs.getObject(i + 1);
+                ref += val + " ";
+            }
+            System.out.println(ref);
+        }
         System.out.println("Ticket fare may change based on date of booking");
     }
 

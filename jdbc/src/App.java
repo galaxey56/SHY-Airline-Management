@@ -6,6 +6,7 @@ import JDBC.ConnectionEst;
 import JDBC.Helper;
 import PassengersList.Passenger;
 import filemanagment.filreader;
+import SQLQueries.flightSQL;
 import SQLQueries.passengerSQL;
 
 public class App {
@@ -57,7 +58,9 @@ public class App {
         Call the below function only once to insert data from csv to mySQL in ur system
         */
         // filreader.readfile("src/filemanagment/PassengerDetails.csv"); 
-        passengerSQL.searchWithId(27);
+        // passengerSQL.searchWithId(27);
+        // System.out.println(passengerSQL.getMaxIDPassengers());
+        flightSQL.flightDetailsWithADD("Chennai", "Hyderabad", "2021-12-27");
         // System.out.println(args.length);
         // switch (args[0]) {
         // case "-p":
@@ -72,6 +75,6 @@ public class App {
         //     printHelp();
         //     break;
         // }
-        passengerSQL.displayAllPassengers();
+        // passengerSQL.displayAllPassengers();
     }
 }

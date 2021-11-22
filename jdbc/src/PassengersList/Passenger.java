@@ -16,7 +16,7 @@ public class Passenger {
     
 
     public static int getTotalPassengers() throws SQLException {
-        return passengerSQL.getTottalNumOfPassengers();
+        return passengerSQL.getMaxIDPassengers();
     }
 
     public static void setTotalPassengers(int totalPassengers) {
