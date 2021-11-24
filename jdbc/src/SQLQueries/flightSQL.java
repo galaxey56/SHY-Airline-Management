@@ -43,7 +43,7 @@ public class flightSQL {
     }
     public static void displayTickets(String ticketNum) throws SQLException{
         Connection need = ConnectionEst.establishConnection();
-        String query = "";                                                  //Need ticket details of this person based on ticketNum
+        String query = "select * from reservation where ticket_no = ?" ;                                                  //Need ticket details of this person based on ticketNum
         PreparedStatement executableQuery = need.prepareStatement(query);
         executableQuery.setString(1, ticketNum);
         ResultSet rs = executableQuery.executeQuery();
@@ -101,3 +101,20 @@ return (fprice);
 end //
 delimiter ;
 */
+
+/*
+delimiter //
+create function priceby_id(flightnum varchar(20),da date)
+returns int
+deterministic
+begin
+declare pprice int;
+if((select DATEDIFF(da,CURDATE())) > 30) then
+select 0.5*price into pprice from flight where flight_no = flightnum;
+else
+select price into pprice from flight where flight_no = flightnum;
+end if;
+return (pprice);
+end //
+delimiter ; 
+*/ */
