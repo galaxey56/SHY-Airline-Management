@@ -123,7 +123,7 @@ public class passengerSQL {
 
     public static void updateTicketNum(String ticket, String id) throws SQLException {
         Connection need = ConnectionEst.establishConnection();
-        String query = ""; // Ticket update in passenger table using his id query
+        String query = "update passenger set ticket_no = ? where passenger_id = ?";  
         PreparedStatement update = need.prepareStatement(query);
         update.setString(1, ticket);
         update.setString(2, id);
@@ -152,9 +152,6 @@ public class passengerSQL {
         case "-a":
             updateAge(id, Integer.parseInt(args[4]));
             break;
-        case "-g":
-            updateGender(id, args[4]);
-            break;
         case "-p":
             updateMobileNum(id, args[4]);
             break;
@@ -165,7 +162,7 @@ public class passengerSQL {
 
     private static void updateName(int id, String name) throws SQLException {
         Connection need = ConnectionEst.establishConnection();
-        String query = "update passenger set name= ? where id= ?"; // Update name with id query in passenger table
+        String query = "update passenger set name= ? where id= ?";              
         PreparedStatement update = need.prepareStatement(query);
         update.setString(1, name);
         update.setInt(2, id);
@@ -174,19 +171,9 @@ public class passengerSQL {
 
     private static void updateAge(int id, int age) throws SQLException {
         Connection need = ConnectionEst.establishConnection();
-        String query = "update passenger set age= ? where id= ?"; // Update name with id query in passenger table
+        String query = "update passenger set age= ? where id= ?";              
         PreparedStatement update = need.prepareStatement(query);
         update.setInt(1, age);
-        update.setInt(2, id);
-        update.executeUpdate();
-
-    }
-
-    private static void updateGender(int id, String gender) throws SQLException {
-        Connection need = ConnectionEst.establishConnection();
-        String query = "update passenger set gender= ? where id= ?"; // Update name with id query in passenger table
-        PreparedStatement update = need.prepareStatement(query);
-        update.setString(1, gender);
         update.setInt(2, id);
         update.executeUpdate();
 
@@ -204,7 +191,7 @@ public class passengerSQL {
 
     private static void updateEmail(int id, String email) throws SQLException {
         Connection need = ConnectionEst.establishConnection();
-        String query = "update passenger set email= ? where id= ?"; // Update name with id query in passenger table
+        String query = "update passenger set email= ? where id= ?";               
         PreparedStatement update = need.prepareStatement(query);
         update.setString(1, email);
         update.setInt(2, id);
@@ -214,7 +201,7 @@ public class passengerSQL {
 
     public static void deletePassenger(int id) throws SQLException {
         Connection need = ConnectionEst.establishConnection();
-        String query = ""; // Delete Query with id in passenger table
+        String query = "delete from passenger where id= ? "; 
         PreparedStatement delete = need.prepareStatement(query);
         delete.setInt(1, id);
         int ans = delete.executeUpdate();
@@ -222,4 +209,42 @@ public class passengerSQL {
             System.out.println("Successfully deleted user Details with id " + id + " from database");
         }
     }
+
+    public static void cleanDB_reservation() throws SQLException {
+        Connection need = ConnectionEst.establishConnection();
+        String query = "call clean_database()"; 
+        PreparedStatement delete = need.prepareStatement(query);
+        int ans = delete.executeUpdate();
+        if(ans == 1 ){
+            System.out.println("Successfully deleted past details from database");
+        }
+    }
 }
+
+
+/*
+delimiter //
+create trigger delete_pass
+after delete 
+on passenger for each row 
+begin 
+declare ticketnum varchar(10);
+set ticketnum = old.ticket_no;
+if ticketnum != "not booked" then 
+delete from reservation where ticket_no = ticketnum;
+end if; 
+end // 
+delimiter ;
+*/
+
+
+/*
+delimiter //
+create procedure clean_database()
+begin 
+declare yest date;
+select subdate(current_date, 1) into yest;
+delete from reservation where date_of_travel = yest;
+end //
+delimiter ;
+*/
