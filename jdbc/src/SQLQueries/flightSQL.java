@@ -13,11 +13,14 @@ public class flightSQL {
 
     public static void flightDetailsWithADD(String arrival, String departure, String date) throws SQLException {
         Connection need = ConnectionEst.establishConnection();
-        String query = "price_cal(?,?,?)";
+        String query = "select flight_no,airline,departureCity,arrivalCity,DepartureTime,arrivalTime,price_cal(?,?,?),capacity from flight where departureCity = ? and arrivalCIty = ?";
         CallableStatement cstmt = need.prepareCall(query);
         cstmt.setString(1, departure);
         cstmt.setString(2, arrival);
         cstmt.setString(3, date);
+        cstmt.setString(4, departure);
+        cstmt.setString(5, arrival);
+        
         cstmt.executeUpdate();
         System.out.println(cstmt.getInt(1));
         System.out.println("Ticket fare may change based on date of booking");
@@ -48,8 +51,9 @@ public class flightSQL {
     }
     public static int getFlightCapacity(String flightNum) throws SQLException{
         Connection need = ConnectionEst.establishConnection();
-        String query = ""; //Get capacity from flight table query
+        String query = "select capacity from flight where flight_no = ?;"; 
         PreparedStatement update = need.prepareStatement(query);
+        update.setString(1, flightNum);
         ResultSet rs = update.executeQuery();
         rs.next();
         int ref = rs.getInt(1);
