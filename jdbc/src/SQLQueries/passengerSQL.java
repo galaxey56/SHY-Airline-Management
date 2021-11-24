@@ -157,6 +157,16 @@ public class passengerSQL {
             System.out.println("Successfully deleted user Details with id " + id  + " from database");
         }
     }
+
+    public static void cleanDB_reservation() throws SQLException {
+        Connection need = ConnectionEst.establishConnection();
+        String query = "call clean_database()"; 
+        PreparedStatement delete = need.prepareStatement(query);
+        int ans = delete.executeUpdate();
+        if(ans == 1 ){
+            System.out.println("Successfully deleted past details from database");
+        }
+    }
 }
 
 
