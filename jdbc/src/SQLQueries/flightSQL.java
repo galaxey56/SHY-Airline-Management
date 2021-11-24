@@ -20,7 +20,6 @@ public class flightSQL {
         cstmt.setString(3, date);
         cstmt.setString(4, departure);
         cstmt.setString(5, arrival);
-        
         cstmt.executeUpdate();
         System.out.println(cstmt.getInt(1));
         System.out.println("Ticket fare may change based on date of booking");
@@ -33,13 +32,19 @@ public class flightSQL {
             System.out.println("Sorry the flight is fully occupied!!");
             return;
         }
+        int num = generateSeatNum(flightNum, date);
         Connection need = ConnectionEst.establishConnection();
         String ticketNum = id + "-" + (Math.round(Math.random() * 10000));
-        passengerSQL.updateTicketNum(ticketNum, id);
         String query = "";                                                 //insert into the reservation table query;
         PreparedStatement insert = need.prepareStatement(query);
+        
         insert.executeQuery();
+        passengerSQL.updateTicketNum(ticketNum, id);
 
+    }
+    private static int generateSeatNum(String flightNum, String date) throws SQLException{
+        int ref = checkAvailability(flightNum, date);
+        return ref+1;
     }
     public static void displayTickets(String ticketNum) throws SQLException{
         Connection need = ConnectionEst.establishConnection();
