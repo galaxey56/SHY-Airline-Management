@@ -50,7 +50,9 @@ public class App {
     }
 
     public static void printPassengerCommands() {
-
+        System.out.println("Passenger Commands Syntax");
+        System.out.println("----------------------------------------");
+        System.out.println("Adding a passenger: \n-p -ap name gender(M/F/N) age email phoneNum");       //Yash examine every switch case i wrote and fill this function :)
     }
 
     public static void printFlightCommands() {
