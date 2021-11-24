@@ -138,4 +138,4 @@ select priceby_id(flightnum , d) into fprice from flight where flight_no = fligh
 insert into reservation values(flightnum,ticketnum,d,aajkitareek,seatnum,fprice);
 end //
 delimiter ;
-*/ */
+*/ 
