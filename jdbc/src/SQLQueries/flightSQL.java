@@ -32,12 +32,15 @@ public class flightSQL {
             System.out.println("Sorry the flight is fully occupied!!");
             return;
         }
-        int num = generateSeatNum(flightNum, date);
+        int seatnum = generateSeatNum(flightNum, date);
         Connection need = ConnectionEst.establishConnection();
         String ticketNum = id + "-" + (Math.round(Math.random() * 10000));
-        String query = "";                                                 //insert into the reservation table query;
+        String query = "insertinto_res(?,?,?,?)";                                                 //insert into the reservation table query;
         PreparedStatement insert = need.prepareStatement(query);
-        
+        insert.setString(1,flightNum);
+        insert.setString(2,ticketNum);
+        insert.setInt(3,seatnum);
+        insert.setString(4,date);
         insert.executeQuery();
         passengerSQL.updateTicketNum(ticketNum, id);
 
@@ -48,7 +51,7 @@ public class flightSQL {
     }
     public static void displayTickets(String ticketNum) throws SQLException{
         Connection need = ConnectionEst.establishConnection();
-        String query = "select * from reservation where ticket_no = ?" ;                                                  //Need ticket details of this person based on ticketNum
+        String query = "select p.passenger_id as id ,p.Name,p.age,p.gender,r.* from passenger p , reservation r where p.ticket_no = r.ticket_no and r.ticket_no = ?;" ;                                                  //Need ticket details of this person based on ticketNum
         PreparedStatement executableQuery = need.prepareStatement(query);
         executableQuery.setString(1, ticketNum);
         ResultSet rs = executableQuery.executeQuery();
@@ -77,7 +80,7 @@ public class flightSQL {
     }
     public static void getFlightDetails(String flightNum) throws SQLException {
         Connection need = ConnectionEst.establishConnection();
-        String query = ""; //Query for flight details from flight table with flight ticket
+        String query = "select * from flight where flight_no = ?"; 
         PreparedStatement executableQuery = need.prepareStatement(query);
         executableQuery.setString(1, flightNum);
         ResultSet rs = executableQuery.executeQuery();
@@ -122,4 +125,17 @@ end if;
 return (pprice);
 end //
 delimiter ; 
+*/ 
+
+/*
+delimiter //
+create procedure insertinto_res(in flightnum varchar(20),in ticketnum varchar(10),in seatnum int, in d date )
+begin 
+declare fprice int;
+declare aajkitareek date;
+select curdate() into aajkitareek;
+select priceby_id(flightnum , d) into fprice from flight where flight_no = flightnum;
+insert into reservation values(flightnum,ticketnum,d,aajkitareek,seatnum,fprice);
+end //
+delimiter ;
 */ */
