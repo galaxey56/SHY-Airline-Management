@@ -1,6 +1,7 @@
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import JDBC.ConnectionEst;
+import PassengersList.Passenger;
 import SQLQueries.flightSQL;
 import filemanagment.filreader;
 
@@ -42,26 +43,44 @@ public class App {
 
     public static void printHelp() {
         System.out.println("Help for commands:");
-        System.out.println("-a <filename> for operation A on filename");
-        System.out.println("-b <recordType> <string> for operation on <recordType> and search <string>");
-        System.out.println("-h (or any) for help menu");
+        System.out.println("-hp <filename> for passenger commands");
+        System.out.println("-hf commands for flights information");
+        System.out.println("-hb commands for booking a flight");
+        System.out.println("-h default help menu");
+    }
+    public static void printPassengerCommands(){
+
+    }
+    public static void printFlightCommands(){
+        
     }
 
     public static void main(String[] args) throws Exception {
         filreader.readfile("src/filemanagment/PassengerDetails.csv");
         // System.out.println(args.length);
-        // switch (args[0]) {
-        // case "-p":
-        //     Passenger.passengerOperations(args);
-        //     break;
-        // case "-f":
-        //     update(args);
-        //     break;
-        // case "-s":
-        //     search(args);
-        // default:
-        //     printHelp();
-        //     break;
-        // }
+        if (args.length == 1) {
+            switch (args[0]) {
+            case "-h":
+                printHelp();
+                break;
+            case "-hp":
+                printPassengerCommands();
+
+                  
+        
+        }
+        switch (args[0]) {
+        case "-p":
+            Passenger.passengerOperations(args);
+            break;
+        case "-f":
+            update(args);
+            break;
+        case "-s":
+            search(args);
+        default:
+            printHelp();
+            break;
+        }
     }
 }

@@ -15,7 +15,7 @@ public class passengerSQL {
         }
         Passenger passenger = new Passenger(args[2], args[3], Integer.parseInt(args[4]), args[5], args[6]);
         passenger.setId(getMaxIDPassengers() + 1);
-        
+
         System.out.println(passenger.toString());
         insertIntoSQL(passenger);
         return passenger;
@@ -43,6 +43,7 @@ public class passengerSQL {
         ans.next();
         return ans.getInt(1);
     }
+
     public static int getMaxIDPassengers() throws SQLException {
         Connection need = ConnectionEst.establishConnection();
         String query = "select max(passenger_id) from passenger";
@@ -66,7 +67,7 @@ public class passengerSQL {
         System.out.println(p.toString());
     }
 
-    //Sample for update
+    // Sample for update
     public static void searchWithId(int id) throws SQLException {
         Connection need = ConnectionEst.establishConnection();
         String query = "select * from passenger where passenger_id = ?";
@@ -80,21 +81,68 @@ public class passengerSQL {
         Passenger p = Passenger.makePassenger(ans);
         System.out.println(p.toString());
     }
+    public static void searchWithTicket(String ticket) throws SQLException {
+        Connection need = ConnectionEst.establishConnection();
+        String query = "select * from passenger where ticket_no = ?";
+        PreparedStatement executableQuery = need.prepareStatement(query);
+        executableQuery.setString(1, ticket);
+        ResultSet ans = executableQuery.executeQuery();
+        if (!ans.next()) {
+            System.out.println("No Match Found");
+            return;
+        }
+        Passenger p = Passenger.makePassenger(ans);
+        System.out.println(p.toString());
+    }
+    public static void searchWithEmail(String mail) throws SQLException {
+        Connection need = ConnectionEst.establishConnection();
+        String query = "select * from passenger where email = ?";
+        PreparedStatement executableQuery = need.prepareStatement(query);
+        executableQuery.setString(1, mail);
+        ResultSet ans = executableQuery.executeQuery();
+        if (!ans.next()) {
+            System.out.println("No Match Found");
+            return;
+        }
+        Passenger p = Passenger.makePassenger(ans);
+        System.out.println(p.toString());
+    }
+    public static void searchWithMobileNum(String num) throws SQLException {
+        Connection need = ConnectionEst.establishConnection();
+        String query = "select * from passenger where phoneNum = ?";
+        PreparedStatement executableQuery = need.prepareStatement(query);
+        executableQuery.setString(1, num);
+        ResultSet ans = executableQuery.executeQuery();
+        if (!ans.next()) {
+            System.out.println("No Match Found");
+            return;
+        }
+        Passenger p = Passenger.makePassenger(ans);
+        System.out.println(p.toString());
+    }
+
     public static void updateTicketNum(String ticket, String id) throws SQLException {
         Connection need = ConnectionEst.establishConnection();
-        String query = ""; //Ticket update in passenger table using his id query 
+        String query = ""; // Ticket update in passenger table using his id query
         PreparedStatement update = need.prepareStatement(query);
         update.setString(1, ticket);
         update.setString(2, id);
         update.executeUpdate();
     }
-    public static void displayAllPassengers() throws Exception{
+
+    public static void displayAllPassengers(String[] args) throws Exception {
         Connection need = ConnectionEst.establishConnection();
         String query = "select * from passenger";
         PreparedStatement runIt = need.prepareStatement(query);
         ResultSet rs = runIt.executeQuery();
-        Helper.pagination(Helper.makeList(rs), 3, getTottalNumOfPassengers());
+        int pageNum;
+        if (args[2] == null)
+            pageNum = 0;
+        else
+            pageNum = Integer.parseInt(args[2]);
+        Helper.pagination(Helper.makeList(rs), pageNum, getTottalNumOfPassengers());
     }
+
     public static void update(String args[]) throws SQLException {
         int id = Integer.parseInt(args[3]);
         switch (args[2]) {
@@ -114,58 +162,64 @@ public class passengerSQL {
             updateEmail(id, args[4]);
         }
     }
+
     private static void updateName(int id, String name) throws SQLException {
         Connection need = ConnectionEst.establishConnection();
-        String query = "update passenger set name= ? where id= ?";               //Update name with id query in passenger table
+        String query = "update passenger set name= ? where id= ?"; // Update name with id query in passenger table
         PreparedStatement update = need.prepareStatement(query);
         update.setString(1, name);
         update.setInt(2, id);
         update.executeUpdate();
     }
-    private static void updateAge(int id, int age) throws SQLException{
+
+    private static void updateAge(int id, int age) throws SQLException {
         Connection need = ConnectionEst.establishConnection();
-        String query = "update passenger set age= ? where id= ?";               //Update name with id query in passenger table
+        String query = "update passenger set age= ? where id= ?"; // Update name with id query in passenger table
         PreparedStatement update = need.prepareStatement(query);
         update.setInt(1, age);
         update.setInt(2, id);
         update.executeUpdate();
 
     }
-    private static void updateGender(int id, String gender) throws SQLException{
+
+    private static void updateGender(int id, String gender) throws SQLException {
         Connection need = ConnectionEst.establishConnection();
-        String query = "update passenger set gender= ? where id= ?";               //Update name with id query in passenger table
+        String query = "update passenger set gender= ? where id= ?"; // Update name with id query in passenger table
         PreparedStatement update = need.prepareStatement(query);
         update.setString(1, gender);
         update.setInt(2, id);
         update.executeUpdate();
 
     }
-    private static void updateMobileNum(int id, String num) throws SQLException{
+
+    private static void updateMobileNum(int id, String num) throws SQLException {
         Connection need = ConnectionEst.establishConnection();
-        String query = "update passenger set num= ? where id= ?";               //Update name with id query in passenger table
+        String query = "update passenger set num= ? where id= ?"; // Update name with id query in passenger table
         PreparedStatement update = need.prepareStatement(query);
         update.setString(1, num);
         update.setInt(2, id);
         update.executeUpdate();
 
     }
-    private static void updateEmail(int id, String email) throws SQLException{
+
+    private static void updateEmail(int id, String email) throws SQLException {
         Connection need = ConnectionEst.establishConnection();
-        String query = "update passenger set email= ? where id= ?";               //Update name with id query in passenger table
+        String query = "update passenger set email= ? where id= ?"; // Update name with id query in passenger table
         PreparedStatement update = need.prepareStatement(query);
         update.setString(1, email);
         update.setInt(2, id);
         update.executeUpdate();
-        
+
     }
+
     public static void deletePassenger(int id) throws SQLException {
         Connection need = ConnectionEst.establishConnection();
-        String query = "";                                      //Delete Query with id in passenger table
+        String query = ""; // Delete Query with id in passenger table
         PreparedStatement delete = need.prepareStatement(query);
         delete.setInt(1, id);
         int ans = delete.executeUpdate();
-        if(ans == 1 ){
-            System.out.println("Successfully deleted user Details with id " + id  + " from database");
+        if (ans == 1) {
+            System.out.println("Successfully deleted user Details with id " + id + " from database");
         }
     }
 }
