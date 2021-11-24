@@ -48,11 +48,13 @@ public class App {
         System.out.println("-hb commands for booking a flight");
         System.out.println("-h default help menu");
     }
-    public static void printPassengerCommands(){
+
+    public static void printPassengerCommands() {
 
     }
-    public static void printFlightCommands(){
-        
+
+    public static void printFlightCommands() {
+
     }
 
     public static void main(String[] args) throws Exception {
@@ -66,8 +68,7 @@ public class App {
             case "-hp":
                 printPassengerCommands();
 
-                  
-        
+            }
         }
         switch (args[0]) {
         case "-p":
