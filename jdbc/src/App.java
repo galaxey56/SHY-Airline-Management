@@ -48,7 +48,8 @@ public class App {
     }
 
     public static void main(String[] args) throws Exception {
-        filreader.readfile("src/filemanagment/PassengerDetails.csv");
+        flightSQL.flightDetailsWithADD("Hyderabad", "Chennai", "2021-12-27");
+        // filreader.readfile("src/filmanagement/PassengerDetails");
         // System.out.println(args.length);
         // switch (args[0]) {
         // case "-p":

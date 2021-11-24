@@ -1,6 +1,5 @@
 package SQLQueries;
 
-import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -13,14 +12,27 @@ public class flightSQL {
 
     public static void flightDetailsWithADD(String arrival, String departure, String date) throws SQLException {
         Connection need = ConnectionEst.establishConnection();
-        String query = "price_cal(?,?,?)";
-        CallableStatement cstmt = need.prepareCall(query);
-        cstmt.setString(1, departure);
-        cstmt.setString(2, arrival);
-        cstmt.setString(3, date);
-        cstmt.executeUpdate();
-        System.out.println(cstmt.getInt(1));
-        System.out.println("Ticket fare may change based on date of booking");
+        String query = "select flight_no , airline , departureCity, arrivalCity, departureTime , arrivalTime , price_cal(?,?,?) as price , capacity from flight where arrivalCity = ? and departureCity = ?;";
+    
+        PreparedStatement executablStatement = need.prepareStatement(query);
+        executablStatement.setString(2, arrival);
+        executablStatement.setString(1, departure);
+        executablStatement.setString(3, date);
+        executablStatement.setString(4, arrival);
+        executablStatement.setString(5, departure);
+        
+        ResultSet rs = executablStatement.executeQuery();
+        System.out.println(rs.getMetaData().getColumnCount());
+        while (rs.next()) {
+            String ref = "";
+            for (int i = 0; i < 8; i++) {
+                Object val = rs.getObject(i + 1);
+                ref += val + " ";
+                System.out.println(val);
+            }
+            System.out.println(ref);
+        }
+        System.out.println("Ticket fare depends on the date of booking");
     }
 
     public static void bookTicket(String id, String flightNum, String date) throws SQLException{
