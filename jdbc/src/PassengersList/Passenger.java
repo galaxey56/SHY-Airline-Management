@@ -11,7 +11,7 @@ public class Passenger {
     private String gender;
     private String phoneNum;
     private String email;
-    private String ticketNum = "No tickets booked yet";
+    private String ticketNum = "Not booked";
     public static int totalPassengers;
     
 
@@ -112,11 +112,37 @@ public class Passenger {
         return p;
     }
 
-    public static void passengerOperations(String[] args) throws SQLException {
+    public static void passengerOperations(String[] args) throws Exception {
         switch (args[1]) {
-        case "-c":
+        case "-dp":
+            passengerSQL.displayAllPassengers(args);;
+            break;
+        case "-ap":
             passengerSQL.createObject(args);
             break;
+        case "-np":
+            passengerSQL.searchWithName(args[2]);
+            break;
+        case "-idp":
+            passengerSQL.searchWithId(Integer.parseInt(args[2]));
+            break;
+        case "-ep":
+            passengerSQL.searchWithEmail(args[2]);
+            break;
+        case "-pp":
+            passengerSQL.searchWithMobileNum(args[2]);
+            break;
+        case "-tnp":
+            passengerSQL.searchWithTicket(args[2]);
+            break;
+        case "-u":
+            passengerSQL.update(args);
+            break;
+        case "-d":
+            passengerSQL.deletePassenger(Integer.parseInt(args[2]));
+            break;
+        default:
+            System.out.println("Wrong Format!! :)");
         }
     }
 
