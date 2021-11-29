@@ -158,6 +158,9 @@ public class passengerSQL {
         case "-p":
             updateMobileNum(id, args[4]);
             break;
+        case "-g":
+            updateGender(id,args[4]);
+            break;
         case "-e":
             updateEmail(id, args[4]);
         }
@@ -168,6 +171,14 @@ public class passengerSQL {
         String query = "update passenger set name= ? where id= ?";              
         PreparedStatement update = need.prepareStatement(query);
         update.setString(1, name);
+        update.setInt(2, id);
+        update.executeUpdate();
+    }
+    private static void updateGender(int id, String Gender) throws SQLException {
+        Connection need = ConnectionEst.establishConnection();
+        String query = "update passenger set gender= ? where id= ?";              
+        PreparedStatement update = need.prepareStatement(query);
+        update.setString(1, Gender);
         update.setInt(2, id);
         update.executeUpdate();
     }
