@@ -235,23 +235,6 @@ public class passengerSQL {
     }
 }
 
-
-/*
-delimiter //
-create trigger delete_pass
-after delete 
-on passenger for each row 
-begin 
-declare ticketnum varchar(10);
-set ticketnum = old.ticket_no;
-if ticketnum != "not booked" then 
-delete from reservation where ticket_no = ticketnum;
-end if; 
-end // 
-delimiter ;
-*/
-
-
 /*
 delimiter //
 create procedure clean_database()

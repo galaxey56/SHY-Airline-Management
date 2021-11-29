@@ -1,3 +1,43 @@
+create database OOPS;
+
+use oops;
+
+show tables;
+
+create table flight 
+(flight_no varchar(10) primary key, 
+airline varchar(20), 
+departureCity varchar(40), 
+arrivalCity varchar(40), 
+departureTime varchar(10), 
+arrivalTime varchar(10), 
+price int , 
+capacity int);
+
+create table reservation 
+(flight_no varchar(10) references flight(flight_no), 
+ticket_no varchar(10) primary key, 
+date_of_travel date, 
+date_of_booking date, 
+seat_number int ,
+price int
+);
+
+create table passenger 
+(
+    passenger_id int primary key, 
+    Name varchar(50), 
+    dob date, 
+    gender char, 
+    phoneNum varchar(10), 
+    email varchar(50),
+    ticket_no varchar(10) references reservation(ticket_no) on delete cascade 
+);
+
+desc passenger;
+desc flight;
+desc reservation;
+
 delimiter //
 create function price_cal(departure varchar(40),arrival varchar(40) ,d date)
 returns int
@@ -13,7 +53,7 @@ return (fprice);
 end //
 delimiter ;
 
-
+select price_cal("Hyderabad","Chennai","2021-12-17") from flight where arrivalCity = "hyderabad" and departureCity = "Chennai";
 
 delimiter //
 create function priceby_id(flightnum varchar(20),da date)
@@ -29,8 +69,6 @@ end if;
 return (pprice);
 end //
 delimiter ; 
- 
-
 
 delimiter //
 create procedure insertinto_res(in flightnum varchar(20),in ticketnum varchar(10),in seatnum int, in d date )
@@ -40,5 +78,14 @@ declare aajkitareek date;
 select curdate() into aajkitareek;
 select priceby_id(flightnum , d) into fprice from flight where flight_no = flightnum;
 insert into reservation values(flightnum,ticketnum,d,aajkitareek,seatnum,fprice);
+end //
+delimiter ;
+
+delimiter //
+create procedure clean_database()
+begin 
+declare yest date;
+select subdate(current_date, 1) into yest;
+delete from reservation where date_of_travel = yest;
 end //
 delimiter ;
