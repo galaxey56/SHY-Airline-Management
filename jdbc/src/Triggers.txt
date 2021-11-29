@@ -1,0 +1,44 @@
+delimiter //
+create function price_cal(departure varchar(40),arrival varchar(40) ,d date)
+returns int
+deterministic
+begin
+declare fprice int;
+if((select DATEDIFF(d,CURDATE())) > 30) then
+select 0.5*price into fprice from flight where arrivalCity = arrival and departureCity = departure;
+else
+select price into fprice from flight where arrivalCity = arrival and departureCity = departure;
+end if;
+return (fprice);
+end //
+delimiter ;
+
+
+
+delimiter //
+create function priceby_id(flightnum varchar(20),da date)
+returns int
+deterministic
+begin
+declare pprice int;
+if((select DATEDIFF(da,CURDATE())) > 30) then
+select 0.5*price into pprice from flight where flight_no = flightnum;
+else
+select price into pprice from flight where flight_no = flightnum;
+end if;
+return (pprice);
+end //
+delimiter ; 
+ 
+
+
+delimiter //
+create procedure insertinto_res(in flightnum varchar(20),in ticketnum varchar(10),in seatnum int, in d date )
+begin 
+declare fprice int;
+declare aajkitareek date;
+select curdate() into aajkitareek;
+select priceby_id(flightnum , d) into fprice from flight where flight_no = flightnum;
+insert into reservation values(flightnum,ticketnum,d,aajkitareek,seatnum,fprice);
+end //
+delimiter ;

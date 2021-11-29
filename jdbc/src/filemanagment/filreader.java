@@ -24,7 +24,7 @@ public class filreader {
             // }
             // reader.close();
 
-            Passenger.setTotalPassengers(passengerSQL.getTottalNumOfPassengers());
+            Passenger.setTotalPassengers();
             Path path = Paths.get(filename);
             System.out.println(Files.exists(path));
             if (Files.exists(path)) {

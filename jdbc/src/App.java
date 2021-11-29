@@ -1,7 +1,10 @@
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+
+import FlightSystem.travelFlight;
 import JDBC.ConnectionEst;
 import PassengersList.Passenger;
+import FlightSystem.ReservationTable;
 import SQLQueries.flightSQL;
 import filemanagment.filreader;
 
@@ -18,28 +21,6 @@ public class App {
         // Helper.pagination(Helper.makeList(rs), 1);
     }
 
-    public static void update(String args[]) throws Exception {
-        // Connection need = ConnectionEst.establishConnection();
-    }
-
-    public static void search(String args[]) throws Exception {
-        // Connection need = ConnectionEst.establishConnection();
-        switch (args[1]) {
-        case "-f":
-            switch (args[2]) {
-            case "id":
-
-                break;
-
-            default:
-                break;
-            }
-            break;
-
-        default:
-            break;
-        }
-    }
 
     public static void printHelp() {
         System.out.println("Help for commands:");
@@ -60,7 +41,7 @@ public class App {
     }
 
     public static void main(String[] args) throws Exception {
-        filreader.readfile("src/filemanagment/PassengerDetails.csv");
+        // filreader.readfile("src/filemanagment/PassengerDetails.csv");
         // System.out.println(args.length);
         if (args.length == 1) {
             switch (args[0]) {
@@ -77,10 +58,11 @@ public class App {
             Passenger.passengerOperations(args);
             break;
         case "-f":
-            update(args);
+            travelFlight.flightOperations(args);
             break;
         case "-s":
-            search(args);
+            ReservationTable.reservationOperation(args);
+            break;
         default:
             printHelp();
             break;

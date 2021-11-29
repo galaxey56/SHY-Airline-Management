@@ -33,6 +33,7 @@ abstract public class Flight {
         this.airline = airline;
         Capacity = capacity;
     }
+
 }
 
 

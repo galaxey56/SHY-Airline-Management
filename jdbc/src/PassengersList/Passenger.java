@@ -12,15 +12,15 @@ public class Passenger {
     private String phoneNum;
     private String email;
     private String ticketNum = "Not booked";
-    public static int totalPassengers;
+    private static int totalPassengers;
     
 
     public static int getTotalPassengers() throws SQLException {
-        return passengerSQL.getMaxIDPassengers();
+        return passengerSQL.getTottalNumOfPassengers();
     }
 
-    public static void setTotalPassengers(int totalPassengers) {
-        Passenger.totalPassengers = totalPassengers;
+    public static void setTotalPassengers() throws SQLException {
+        Passenger.totalPassengers = passengerSQL.getMaxIDPassengers();
     }
 
     public int getId() {

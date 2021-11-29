@@ -45,8 +45,8 @@ public class Helper {
         return hello;
     }
 
-    public static void pagination(List<String> rs, int page, int totalPages) throws Exception {
-        int maxPages = totalPages / pageLimit + 1;
+    public static void pagination(List<String> rs, int page, int totalEntries) throws Exception {
+        int maxPages = totalEntries / pageLimit + 1;
         if (page > maxPages) {
             System.out.println("Page limit exceeded");
             return;
@@ -54,8 +54,14 @@ public class Helper {
         System.out.println("Displaying page " + (page) + "/" + maxPages + "\n");
         System.out.println(header);
         System.out.println("----------------------------------------------------------------------");
-        for (int j = 0; j < pageLimit && ((page-1)*pageLimit + j) < totalPages; j++) {
+        for (int j = 0; j < pageLimit && ((page-1)*pageLimit + j) < totalEntries; j++) {
             System.out.println(rs.get((page - 1) * pageLimit + j));
         }
+    }
+
+    public static int getCount(ResultSet rs) throws Exception{
+        int ref = 0;
+        while(rs.next())ref++;
+        return ref;
     }
 }

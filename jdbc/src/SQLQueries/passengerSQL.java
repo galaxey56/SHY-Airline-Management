@@ -68,7 +68,7 @@ public class passengerSQL {
     }
 
     // Sample for update
-    public static void searchWithId(int id) throws SQLException {
+    public static int searchWithId(int id, int trig) throws SQLException {
         Connection need = ConnectionEst.establishConnection();
         String query = "select * from passenger where passenger_id = ?";
         PreparedStatement executableQuery = need.prepareStatement(query);
@@ -76,10 +76,13 @@ public class passengerSQL {
         ResultSet ans = executableQuery.executeQuery();
         if (!ans.next()) {
             System.out.println("No Match Found");
-            return;
+            return 0;
         }
+        
         Passenger p = Passenger.makePassenger(ans);
-        System.out.println(p.toString());
+        if(trig > 0)System.out.println(p.toString());
+        return 1;
+        
     }
     public static void searchWithTicket(String ticket) throws SQLException {
         Connection need = ConnectionEst.establishConnection();
@@ -121,12 +124,12 @@ public class passengerSQL {
         System.out.println(p.toString());
     }
 
-    public static void updateTicketNum(String ticket, String id) throws SQLException {
+    public static void updateTicketNum(String ticket, int id) throws SQLException {
         Connection need = ConnectionEst.establishConnection();
         String query = "update passenger set ticket_no = ? where passenger_id = ?";  
         PreparedStatement update = need.prepareStatement(query);
         update.setString(1, ticket);
-        update.setString(2, id);
+        update.setInt(2, id);
         update.executeUpdate();
     }
 

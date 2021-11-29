@@ -5,8 +5,6 @@ Passenger's Helper Section
 -IDP "Search passenger information with ID"
 -EP "Search passenger information with email"
 -PP "Search passenger information with phone number"
--AP "Search passenger information with age"
--GP "Search passenger information with gender"
 -TNP "Search passenger information with ticket number"
 -UPN "Update passenger's name"
 -UEP "Update passenger's email"
@@ -17,6 +15,31 @@ Passenger's Helper Section
 
 Flights Helper Section
 -F "Show all the flights"
--DIDF "Search flights with Date and ID(eg 2021-12-05 A105)"
--DCF "Search flights with Date , Departure city and Arrtival City(eg 2021-12-05 Delhi Mumbai)"
+-DIDF "Search flights with Date and ID(eg 2021-12-05 A105)"/*Show no. of seates left as well*/
+-DDAF "Search flights with Date , Departure city and Arrival city(eg 2021-12-05 Delhi Mumbai)"
+-DDF "Search flights with Date and Departure city (eg 2021-12-05 Delhi)"
+-DAF "Search flights with Date and Arrival city(eg 2021-12-05 Mumbai)"
+
+-BT "Book Ticket"
+-DT "Display Ticket"
+-CT "Cancel Ticket"
+-FPI "Show Information of all passenger travelling in a given flight"
+
+
+
+
+"
+**************************************************************************
+<<<<<<<<<<<<<<<<<<<<<<<< AIRLINE NAME >>>>>>>>>>>>>>>>>>>>>>>>>>>
+A105                                       TCDZII 
+Yash Gupta                                 M,19
+DEP(WITH UNDERLINE)                        ARR(WITH UNDERLINE)
+DELHI                                      MUMBAI
+5:00                                       6:00
+DATE(WITH UNDERLINE)                       2020-12-05                                                     
+                                 
+ALL PASSENGERS ARE ADVISED TO REACH AIRPORT 2 HR PRIOR TO DEPARTURE TIME
+**************************************************************************
+"
+
 
