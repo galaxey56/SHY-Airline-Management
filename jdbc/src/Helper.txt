@@ -17,8 +17,7 @@ Flights Helper Section
 -F "Show all the flights"
 -DIDF "Search flights with Date and ID(eg 2021-12-05 A105)"/*Show no. of seates left as well*/
 -DDAF "Search flights with Date , Departure city and Arrival city(eg 2021-12-05 Delhi Mumbai)"
--DDF "Search flights with Date and Departure city (eg 2021-12-05 Delhi)"
--DAF "Search flights with Date and Arrival city(eg 2021-12-05 Mumbai)"
+
 
 -BT "Book Ticket"
 -DT "Display Ticket"
