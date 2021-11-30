@@ -7,6 +7,10 @@ import java.util.List;
 public class Helper {
     final static int pageLimit = 10;
     static String header;
+    static int[] store = new int[1000];
+    private void setStore(String cols){
+        
+    }
     
 
     public String getHeader() {
