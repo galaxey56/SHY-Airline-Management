@@ -50,6 +50,11 @@ public class App {
     }
 
     public static void printFlightCommands() {
+        System.out.println("Flights Commands Syntax");
+        System.out.println("----------------------------------------");
+        System.out.println("Search a Flight with Flight ID and Date of travel: \n-f -d Flight_ID Date_of_Travel(YYYY-MM-DD");       
+        System.out.println("Search a Flight with Departure City, Arrival City, Date of travel, Depa: \n-f -s Departure_City Arrival_City Date_of_Travel(YYYY-MM-DD");       
+        System.out.println("Display all flight details: \n-f -a");
 
     }
 
