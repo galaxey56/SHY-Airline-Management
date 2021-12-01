@@ -111,6 +111,10 @@ public class flightSQL {
         rs.next();
         return rs.getInt(1);
     }
+    public static void deleteReservation(String ticket) throws SQLException{
+        Connection need = ConnectionEst.establishConnection();
+        String query = "delete from reservation where ticket_no = ?";
+    }
 
 }
 

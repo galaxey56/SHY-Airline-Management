@@ -13,7 +13,7 @@ public class passengerSQL {
         if (args.length != 7) {
             System.out.println("Please enter all required values in defined order");
         }
-        Passenger passenger = new Passenger(args[2], args[3], Integer.parseInt(args[4]), args[5], args[6]);
+        Passenger passenger = new Passenger(args[2], args[3],args[4], args[5], args[6]);
         passenger.setId(getMaxIDPassengers() + 1);
 
         System.out.println(passenger.toString());
@@ -27,7 +27,7 @@ public class passengerSQL {
         PreparedStatement executableQuery = need.prepareStatement(query);
         executableQuery.setInt(1, p.getId());
         executableQuery.setString(2, p.getName());
-        executableQuery.setInt(3, p.getAge());
+        executableQuery.setString(3, p.getDOB());
         executableQuery.setString(4, p.getGender());
         executableQuery.setString(5, p.getPhoneNum());
         executableQuery.setString(6, p.getEmail());

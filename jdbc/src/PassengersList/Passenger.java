@@ -7,7 +7,7 @@ import java.sql.SQLException;
 public class Passenger {
     private int id;
     private String name;
-    private int age;
+    private String DOB;
     private String gender;
     private String phoneNum;
     private String email;
@@ -34,7 +34,7 @@ public class Passenger {
     @Override
     public String toString() {
         return "Passenger details: \n------------------------------------------\n" + "ID: " + this.id + "\n" + "Name: "
-                + this.name + "\n" + "Age: " + this.age + "\n" + "Gender: " + this.gender + "\n" + "PhoneNum: "
+                + this.name + "\n" + "Date Of Birth: " + this.DOB + "\n" + "Gender: " + this.gender + "\n" + "PhoneNum: "
                 + this.phoneNum + "\n" + "Email: " + this.email + "\n" + "ticketNum: " + this.ticketNum
                 + "\n------------------------------------------";
     }
@@ -59,10 +59,10 @@ public class Passenger {
         return ticketNum;
     }
 
-    public Passenger(String name, String gender, int age, String email, String phoneNum) {
+    public Passenger(String name, String gender, String DOB, String email, String phoneNum) {
         this.name = name;
         this.gender = gender;
-        this.age = age;
+        this.DOB = DOB;
         this.email = email;
         this.phoneNum = phoneNum;
     }
@@ -71,7 +71,7 @@ public class Passenger {
         String values[] = x.split(",");
         this.name = values[0];
         this.gender = values[1];
-        this.age = Integer.parseInt(values[2]);
+        this.DOB = values[2];
         this.email = values[3];
         this.phoneNum = values[4];
         this.id = ++totalPassengers;
@@ -89,12 +89,14 @@ public class Passenger {
         this.gender = gender;
     }
 
-    public int getAge() {
-        return age;
+   
+
+    public String getDOB() {
+        return DOB;
     }
 
-    public void setAge(int age) {
-        this.age = age;
+    public void setDOB(String dOB) {
+        DOB = dOB;
     }
 
     public String getEmail() {
@@ -106,7 +108,7 @@ public class Passenger {
     }
 
     public static Passenger makePassenger(ResultSet rs) throws SQLException {
-        Passenger p = new Passenger(rs.getString(2), rs.getString(4), rs.getInt(3), rs.getString(6), rs.getString(5));
+        Passenger p = new Passenger(rs.getString(2), rs.getString(4), rs.getString(3), rs.getString(6), rs.getString(5));
         p.setId(rs.getInt(1));
         p.setTicketNum(rs.getString(7));
         return p;
@@ -124,7 +126,7 @@ public class Passenger {
             passengerSQL.searchWithName(args[2]);
             break;
         case "-idp":
-            passengerSQL.searchWithId(Integer.parseInt(args[2]));
+            passengerSQL.searchWithId(Integer.parseInt(args[2]), 1);
             break;
         case "-ep":
             passengerSQL.searchWithEmail(args[2]);
