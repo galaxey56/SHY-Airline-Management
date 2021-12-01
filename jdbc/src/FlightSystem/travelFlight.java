@@ -35,7 +35,10 @@ public class travelFlight extends Flight {
                 flightSQL.flightDetailsWithADD(args[2], args[3], args[4]);
                 break;
             case "-d":
-                flightSQL.getFlightDetails(args[2]);
+                flightSQL.getFlightDetails(args[2]);                     //Flight details only with flightNum
+                break;
+            case "-dd":
+                flightSQL.getFlightDetails(args[2], args[3]);            //Flight details with date and displayin capacity left
                 break;
             default:
                 System.out.println("Wrong Format!! :)");

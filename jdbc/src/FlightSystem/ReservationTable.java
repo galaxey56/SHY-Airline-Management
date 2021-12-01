@@ -9,6 +9,12 @@ public class ReservationTable {
             case "-t":
                 flightSQL.displayTickets(args[2]);
                 break;
+            case "-d":
+                flightSQL.deleteReservation(args[2]);
+                break;
+            case "-fl":
+                flightSQL.displayAllPassengersOfFlight(args[2], args[3]);
+                break;
             default:
                 System.out.println("Wrong Format!! :)");
 

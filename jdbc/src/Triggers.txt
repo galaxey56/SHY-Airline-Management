@@ -31,7 +31,7 @@ create table passenger
     gender char, 
     phoneNum varchar(10), 
     email varchar(50),
-    ticket_no varchar(10) references reservation(ticket_no) on delete cascade 
+    ticket_no varchar(10) references reservation(ticket_no) on delete set null 
 );
 
 desc passenger;

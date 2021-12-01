@@ -42,7 +42,7 @@ public class flightSQL {
             System.out.println("To know your id please search passenger details with your name or email");
             return;
         }
-        int ref = checkAvailability(flightNum, date);
+        int ref = checkTotal(flightNum, date);
         ref = getFlightCapacity(flightNum) - ref;
         if(ref == 0){
             System.out.println("Sorry the flight is fully occupied!!");
@@ -62,12 +62,12 @@ public class flightSQL {
         passengerSQL.searchWithId(id, 1);
     }
     private static int generateSeatNum(String flightNum, String date) throws SQLException{
-        int ref = checkAvailability(flightNum, date);
+        int ref = checkTotal(flightNum, date);
         return ref+1;
     }
     public static void displayTickets(String ticketNum) throws SQLException{
         Connection need = ConnectionEst.establishConnection();
-        String query = "select p.passenger_id as id ,p.Name,p.age,p.gender,r.* from passenger p , reservation r where p.ticket_no = r.ticket_no and r.ticket_no = ?;" ;                                                  //Need ticket details of this person based on ticketNum
+        String query = "select p.passenger_id as id ,p.Name,p.age,p.gender,r.* from passenger p , reservation r where p.ticket_no = r.ticket_no and r.ticket_no = ?" ;                                                  //Need ticket details of this person based on ticketNum
         PreparedStatement executableQuery = need.prepareStatement(query);
         executableQuery.setString(1, ticketNum);
         ResultSet rs = executableQuery.executeQuery();
@@ -83,7 +83,7 @@ public class flightSQL {
         int ref = rs.getInt(1);
         return ref;
     }
-    private static int checkAvailability(String flightNum, String date) throws SQLException{
+    private static int checkTotal(String flightNum, String date) throws SQLException{
         Connection need = ConnectionEst.establishConnection();
         String query = "select count(*) from reservation where flight_no = ? and date_of_travel = ?"; 
         PreparedStatement runIt = need.prepareStatement(query);
@@ -103,17 +103,33 @@ public class flightSQL {
         travelFlight ref = travelFlight.convert(rs);
         System.out.println(ref.toString());
     }
-    private static int getTotalNumOfFlights() throws Exception{
+    public static void getFlightDetails(String flightNum, String date) throws SQLException{
         Connection need = ConnectionEst.establishConnection();
-        String query = "select count(*) from flight";
-        PreparedStatement hey = need.prepareStatement(query);
-        ResultSet rs = hey.executeQuery();
-        rs.next();
-        return rs.getInt(1);
+        String query = "select * from flight where flight_no = ?"; 
+        PreparedStatement executableQuery = need.prepareStatement(query);
+        executableQuery.setString(1, flightNum);
+        ResultSet rs = executableQuery.executeQuery();
+        travelFlight ref = travelFlight.convert(rs);
+        System.out.println(ref.toString());
+        System.out.println("Num of seats left = " + (getFlightCapacity(flightNum)-checkTotal(flightNum, date)));
+    }
+    public static void displayAllPassengersOfFlight(String flightNum, String date) throws Exception{
+        Connection need = ConnectionEst.establishConnection();
+        String query = "select R.ticket_no , seat_number , Name , Gender from reservation R,Passenger P where R.ticket_no = P.ticket_no and R.flight_no = ? and R.date_of_travel = ?";
+        PreparedStatement stmt = need.prepareStatement(query);
+        stmt.setString(1, flightNum);
+        stmt.setString(2, date);
+        ResultSet rs = stmt.executeQuery();
+        int ans = Helper.getCount(rs);
+        ResultSet re = stmt.executeQuery();
+        Helper.pagination(Helper.makeList(re), 1, ans);
     }
     public static void deleteReservation(String ticket) throws SQLException{
         Connection need = ConnectionEst.establishConnection();
         String query = "delete from reservation where ticket_no = ?";
+        PreparedStatement stmt = need.prepareStatement(query);
+        stmt.setString(1, ticket);
+        stmt.executeUpdate();
     }
 
 }
