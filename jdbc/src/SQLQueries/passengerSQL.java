@@ -123,7 +123,7 @@ public class passengerSQL {
         Passenger p = Passenger.makePassenger(ans);
         System.out.println(p.toString());
     }
-    public static void searchadultpassenger(String[] args) throws Exception{
+    public static void searchAdultPassenger(String[] args) throws Exception{
         Connection need = ConnectionEst.establishConnection();
         String query="";//samyak add sql query Here
         PreparedStatement runIt = need.prepareStatement(query);
@@ -229,7 +229,7 @@ public class passengerSQL {
 
     public static void deletePassenger(int id) throws SQLException {
         Connection need = ConnectionEst.establishConnection();
-        String query = "delete from passenger where id= ? "; 
+        String query = "delete from passenger where passenger_id= ? "; 
         PreparedStatement delete = need.prepareStatement(query);
         delete.setInt(1, id);
         int ans = delete.executeUpdate();

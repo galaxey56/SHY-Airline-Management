@@ -1,5 +1,7 @@
 package PassengersList;
 
+
+
 import SQLQueries.passengerSQL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -136,6 +138,9 @@ public class Passenger {
             break;
         case "-tnp":
             passengerSQL.searchWithTicket(args[2]);
+            break;
+        case "aa":
+            // passengerSQL.searchAdultPassenger(args[2]);
             break;
         case "-u":
             passengerSQL.update(args);
