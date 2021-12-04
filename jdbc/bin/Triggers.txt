@@ -71,15 +71,38 @@ end //
 delimiter ; 
 
 delimiter //
-create procedure insertinto_res(in flightnum varchar(20),in ticketnum varchar(10),in seatnum int, in d date )
+create function priceby_class(flightnum varchar(20),da date,ticketClass char)
+returns int
+deterministic
+begin
+declare pprice int;
+if((select DATEDIFF(da,CURDATE())) > 30 && ticketClass = "E") then
+select 0.5*price into pprice from flight where flight_no = flightnum;
+elseif((select DATEDIFF(da,CURDATE())) > 30 && ticketClass = "B") then
+select 0.5*price+1000 into pprice from flight where flight_no = flightnum;
+elseif((select DATEDIFF(da,CURDATE())) > 30 && ticketClass = "F") then
+select 0.5*price+2000 into pprice from flight where flight_no = flightnum;
+elseif((select DATEDIFF(da,CURDATE())) <= 30 && ticketClass = "B") then
+select price+1000 into pprice from flight where flight_no = flightnum;
+elseif((select DATEDIFF(da,CURDATE())) <= 30 && ticketClass = "F") then
+select price+2000 into pprice from flight where flight_no = flightnum;
+else 
+select price into pprice from flight where flight_no = flightnum;
+end if;
+return (pprice);
+end //
+delimiter ; 
+
+delimiter //
+create procedure insertinto_res(in flightnum varchar(20),in ticketnum varchar(10),in seatnum int, in d date, in ticketClass char)
 begin 
 declare fprice int;
 declare aajkitareek date;
 select curdate() into aajkitareek;
-select priceby_id(flightnum , d) into fprice from flight where flight_no = flightnum;
-insert into reservation values(flightnum,ticketnum,d,aajkitareek,seatnum,fprice);
+select priceby_class(flightnum , d, ticketClass) into fprice from flight where flight_no = flightnum;
+insert into reservation values(flightnum,ticketnum,d,aajkitareek,seatnum,fprice,ticketClass);
 end //
-delimiter ;
+delimiter ; 
 
 delimiter //
 create procedure clean_database()
@@ -89,3 +112,13 @@ select subdate(current_date, 1) into yest;
 delete from reservation where date_of_travel = yest;
 end //
 delimiter ;
+
+delimiter //
+create trigger reservation_trig
+after delete on reservation 
+for each row 
+begin 
+update passenger set ticket_no = "Not Booked" where ticket_no = old.ticket_no;
+end //
+delimiter ;
+

@@ -49,17 +49,17 @@ public class flightSQL {
             System.out.println("Sorry the flight is fully occupied!!");
             return;
         }
-        int seatnum = generateSeatNum(flightNum, date);
-        String ticketNum = id + "-" + (Math.round(Math.random() * 10000));
-        if (ticketClass == "E") {
+        int seatnum = generateSeatNum(flightNum, date, ticketClass);
+        String ticketNum = ticketClass + id + "-" + (Math.round(Math.random() * 10000));
+        if (ticketClass.equals("E")) {
             EconomyClass booking = new EconomyClass(flightNum, date, seatnum, getFlightFare(flightNum));
-            bookTicket(booking, ticketNum);
-        } else if (ticketClass == "B") {
+            bookTicket(booking, ticketNum, ticketClass);
+        } else if (ticketClass.equals("B")) {
             BusinessClass booking = new BusinessClass(flightNum, date, seatnum, getFlightFare(flightNum));
-            bookTicket(booking, ticketNum);
-        } else if (ticketClass == "F") {
+            bookTicket(booking, ticketNum, ticketClass);
+        } else if (ticketClass.equals("F")) {
             FirstClass booking = new FirstClass(flightNum, date, seatnum, getFlightFare(flightNum));
-            bookTicket(booking, ticketNum);
+            bookTicket(booking, ticketNum, ticketClass);
         } else {
             System.out.println("No such ticket class exists!!");
         }
@@ -67,67 +67,69 @@ public class flightSQL {
         passengerSQL.searchWithId(id, 1);
     }
 
-    public static void bookTicket(EconomyClass booking, String ticketNum) throws SQLException {
+    public static void bookTicket(EconomyClass booking, String ticketNum, String ticketClass) throws SQLException {
         Connection need = ConnectionEst.establishConnection();
-        String query = "call insertinto_res(?,?,?,?)"; // insert into the reservation table query;
+        String query = "call insertinto_res(?,?,?,?,?)"; // insert into the reservation table query;
         PreparedStatement insert = need.prepareStatement(query);
         insert.setString(1, booking.getFlightNum());
         insert.setString(2, ticketNum);
         insert.setInt(3, booking.getSeatNum());
         insert.setString(4, booking.getDateOfTravel());
+        insert.setString(5, ticketClass);
         insert.executeUpdate();
     }
 
-    public static void bookTicket(BusinessClass booking, String ticketNum) throws SQLException {
+    public static void bookTicket(BusinessClass booking, String ticketNum, String ticketClass) throws SQLException {
         Connection need = ConnectionEst.establishConnection();
-        String query = "call insertinto_res(?,?,?,?)"; // insert into the reservation table query;
+        String query = "call insertinto_res(?,?,?,?,?)"; // insert into the reservation table query;
         PreparedStatement insert = need.prepareStatement(query);
         insert.setString(1, booking.getFlightNum());
         insert.setString(2, ticketNum);
         insert.setInt(3, booking.getSeatNum());
         insert.setString(4, booking.getDateOfTravel());
+        insert.setString(5, ticketClass);
         insert.executeUpdate();
     }
 
-    public static void bookTicket(FirstClass booking, String ticketNum) throws SQLException {
+    public static void bookTicket(FirstClass booking, String ticketNum, String ticketClass) throws SQLException {
         Connection need = ConnectionEst.establishConnection();
-        String query = "call insertinto_res(?,?,?,?)"; // insert into the reservation table query;
+        String query = "call insertinto_res(?,?,?,?,?)"; // insert into the reservation table query;
         PreparedStatement insert = need.prepareStatement(query);
         insert.setString(1, booking.getFlightNum());
         insert.setString(2, ticketNum);
         insert.setInt(3, booking.getSeatNum());
         insert.setString(4, booking.getDateOfTravel());
+        insert.setString(5, ticketClass);
         insert.executeUpdate();
     }
 
-    private static int generateSeatNum(String flightNum, String date) throws SQLException {
-        int ref = checkTotal(flightNum, date);
+    private static int generateSeatNum(String flightNum, String date, String ticketClass) throws SQLException {
+        int ref = checkTotal(flightNum, date, ticketClass);
         return ref + 1;
     }
 
     public static void displayTickets(String ticketNum) throws SQLException {
         Connection need = ConnectionEst.establishConnection();
-        String query = "select p.passenger_id as id ,p.Name,p.dob,p.gender,r.* from passenger p , reservation r where p.ticket_no = r.ticket_no and r.ticket_no = ?";                                                                                 
+        String query = "select p.Name,p.dob,p.gender,r.*,f.departureTime , arrivalTime,departurecity , arrivalcity from passenger p , reservation r, flight f where p.ticket_no = r.ticket_no and f.flight_no = r.flight_no and r.ticket_no = ?;";
         PreparedStatement executableQuery = need.prepareStatement(query);
         executableQuery.setString(1, ticketNum);
         ResultSet rs = executableQuery.executeQuery();
         rs.next();
-        
+
         /* hmm galaxy u need to do something here dont forget */
         System.out.println("************************************************************************");
         System.out.println("<<<<<<<<<<<<<<<<<<<<< AIRLINE NAME >>>>>>>>>>>>>>>>>>>>>>>>");
         System.out.println("Flight-no.");
         System.out.println("Ticket-no.");
         System.out.println("Yash Gupta,M,19");
-        System.out.println("Mumbati to Delhi");
+        System.out.println("Economy Class");
+        System.out.println("Mumbai to Delhi");
         System.out.println("Date:-YYYY-MM-DD");
         System.out.println("Departure Time:- ");
         System.out.println("Arrival Time:- ");
         System.out.println("ALL PASSENGERS ARE ADVISED TO REACH AIRPORT 2 HR PRIOR TO DEPARTURE TIME");
         System.out.println("************************************************************************");
 
-                                 
-        
     }
 
     private static int getFlightCapacity(String flightNum) throws SQLException {
@@ -147,6 +149,18 @@ public class flightSQL {
         PreparedStatement runIt = need.prepareStatement(query);
         runIt.setString(1, flightNum);
         runIt.setString(2, date);
+        ResultSet rs = runIt.executeQuery();
+        rs.next();
+        int ref = rs.getInt(1);
+        return ref;
+    }
+    private static int checkTotal(String flightNum, String date, String ticketClass) throws SQLException {
+        Connection need = ConnectionEst.establishConnection();
+        String query = "select count(*) from reservation where flight_no = ? and date_of_travel = ? and ticketClass = ?";
+        PreparedStatement runIt = need.prepareStatement(query);
+        runIt.setString(1, flightNum);
+        runIt.setString(2, date);
+        runIt.setString(3, ticketClass);
         ResultSet rs = runIt.executeQuery();
         rs.next();
         int ref = rs.getInt(1);
@@ -188,7 +202,7 @@ public class flightSQL {
 
     public static void displayAllPassengersOfFlight(String flightNum, String date) throws Exception {
         Connection need = ConnectionEst.establishConnection();
-        String query = "select R.ticket_no , seat_number , Name , Gender from reservation R,Passenger P where R.ticket_no = P.ticket_no and R.flight_no = ? and R.date_of_travel = ?";
+        String query = "select R.Ticket_no , Seat_number , Name , Gender, TicketClass from reservation R,Passenger P where R.ticket_no = P.ticket_no and R.flight_no = ? and R.date_of_travel = ?";
         PreparedStatement stmt = need.prepareStatement(query);
         stmt.setString(1, flightNum);
         stmt.setString(2, date);

@@ -1,11 +1,13 @@
 package FlightSystem;
 import SQLQueries.flightSQL;
-import SQLQueries.passengerSQL;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+
+
 public class travelFlight extends Flight {
+    
     private String departureCity;
     private String arrivalCity;
     private String departureTime;
