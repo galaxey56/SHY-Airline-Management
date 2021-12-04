@@ -215,7 +215,7 @@ public class passengerSQL {
 
     public static void deletePassenger(int id) throws SQLException {
         Connection need = ConnectionEst.establishConnection();
-        String query = "delete from passenger where id= ? "; 
+        String query = "delete from passenger where passenger_id= ? "; 
         PreparedStatement delete = need.prepareStatement(query);
         delete.setInt(1, id);
         int ans = delete.executeUpdate();

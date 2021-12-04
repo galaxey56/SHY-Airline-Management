@@ -4,7 +4,7 @@ public class ReservationTable {
     public static void reservationOperation(String[] args) throws Exception{
         switch(args[1]){
             case "-b":
-                flightSQL.bookTicket(Integer.parseInt(args[2]), args[3], args[4]);
+                flightSQL.bookClassTicket(Integer.parseInt(args[2]), args[3], args[4], args[5]);
                 break;
             case "-t":
                 flightSQL.displayTickets(args[2]);
