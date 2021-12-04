@@ -122,7 +122,10 @@ public class flightSQL {
         System.out.println("Flight-no.");
         System.out.println("Ticket-no.");
         System.out.println("Yash Gupta,M,19");
+<<<<<<< HEAD
+=======
         System.out.println("Economy Class");
+>>>>>>> ba7459b3295d70e04c9d8a4bdf40e1c947c49a7d
         System.out.println("Mumbai to Delhi");
         System.out.println("Date:-YYYY-MM-DD");
         System.out.println("Departure Time:- ");
