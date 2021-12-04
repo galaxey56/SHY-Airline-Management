@@ -2,7 +2,6 @@
 import FlightSystem.travelFlight;
 import PassengersList.Passenger;
 import FlightSystem.ReservationTable;
-import filemanagment.filreader;
 
 public class App {
 
@@ -41,7 +40,14 @@ public class App {
         System.out.println(
                 "Search a Flight with Departure City, Arrival City, Date of travel, Depa: \n-f -s Departure_City Arrival_City Date_of_Travel(YYYY-MM-DD");
         System.out.println("Display all flight details: \n-f -a");
-
+    }
+    public static void printReservationCommands(){
+        System.out.println("Reservation Commands Syntax");
+        System.out.println("----------------------------------------");
+        System.out.println("Book a flight: \n-s -b Passenger's_ID Flight_ID Date_of_Travel(YYYY-MM-DD)");
+        System.out.println("Display a Ticket: \n-s -t Tikcet_Number");
+        System.out.println("Delete a Ticket: \n-s -d Ticket_Number");
+        System.out.println("Display all passenger of a flight: \n-f -fl Flight_Number Date_Of_Travel(YYYY-MM-DD)");
     }
     public static void main(String[] args) throws Exception {
         // filreader.readfile("src/filemanagment/PassengerDetails.csv");

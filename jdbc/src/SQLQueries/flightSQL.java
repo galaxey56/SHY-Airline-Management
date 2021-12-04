@@ -111,7 +111,23 @@ public class flightSQL {
         PreparedStatement executableQuery = need.prepareStatement(query);
         executableQuery.setString(1, ticketNum);
         ResultSet rs = executableQuery.executeQuery();
+        rs.next();
+        
         /* hmm galaxy u need to do something here dont forget */
+        System.out.println("************************************************************************");
+        System.out.println("<<<<<<<<<<<<<<<<<<<<< AIRLINE NAME >>>>>>>>>>>>>>>>>>>>>>>>");
+        System.out.println("Flight-no.");
+        System.out.println("Ticket-no.");
+        System.out.println("Yash Gupta,M,19");
+        System.out.println("Mumbati to Delhi");
+        System.out.println("Date:-YYYY-MM-DD");
+        System.out.println("Departure Time:- ");
+        System.out.println("Arrival Time:- ");
+        System.out.println("ALL PASSENGERS ARE ADVISED TO REACH AIRPORT 2 HR PRIOR TO DEPARTURE TIME");
+        System.out.println("************************************************************************");
+
+                                 
+        
     }
 
     private static int getFlightCapacity(String flightNum) throws SQLException {
