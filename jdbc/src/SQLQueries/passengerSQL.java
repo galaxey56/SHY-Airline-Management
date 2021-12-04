@@ -123,6 +123,20 @@ public class passengerSQL {
         Passenger p = Passenger.makePassenger(ans);
         System.out.println(p.toString());
     }
+    public static void searchadultpassenger(String[] args) throws Exception{
+        Connection need = ConnectionEst.establishConnection();
+        String query="";//samyak add sql query Here
+        PreparedStatement runIt = need.prepareStatement(query);
+        ResultSet rs = runIt.executeQuery();
+        int pageNum;
+        if (args[2] == null)
+            pageNum = 0;
+        else
+            pageNum = Integer.parseInt(args[2]);
+        int total = Helper.getCount(rs);
+        ResultSet result = runIt.executeQuery();
+        Helper.pagination(Helper.makeList(result), pageNum, total);
+    }
 
     public static void updateTicketNum(String ticket, int id) throws SQLException {
         Connection need = ConnectionEst.establishConnection();

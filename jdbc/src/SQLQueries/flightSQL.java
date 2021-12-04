@@ -79,15 +79,13 @@ public class flightSQL {
         System.out.println("Flight-no.");
         System.out.println("Ticket-no.");
         System.out.println("Yash Gupta,M,19");
-        System.out.println("Mumbati to Delhi");
+        System.out.println("Mumbai to Delhi");
         System.out.println("Date:-YYYY-MM-DD");
         System.out.println("Departure Time:- ");
         System.out.println("Arrival Time:- ");
         System.out.println("ALL PASSENGERS ARE ADVISED TO REACH AIRPORT 2 HR PRIOR TO DEPARTURE TIME");
         System.out.println("************************************************************************");
 
-                                 
-        
     }
     private static int getFlightCapacity(String flightNum) throws SQLException{
         Connection need = ConnectionEst.establishConnection();
