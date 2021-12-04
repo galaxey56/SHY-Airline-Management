@@ -59,9 +59,9 @@ public class App {
     }
 
     public static void main(String[] args) throws Exception {
-        // filreader.readfile("src/filemanagment/PassengerDetails.csv");
+         filreader.readfile("src/filemanagment/PassengerDetails.csv");
         // System.out.println(args.length);
-        if (args.length == 1) {
+       /* if (args.length == 1) {
             switch (args[0]) {
             case "-h":
                 printHelp();
@@ -84,6 +84,6 @@ public class App {
         default:
             printHelp();
             break;
-        }
+        }*/
     }
 }
