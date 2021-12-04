@@ -248,14 +248,3 @@ public class passengerSQL {
         }
     }
 }
-
-/*
-delimiter //
-create procedure clean_database()
-begin 
-declare yest date;
-select subdate(current_date, 1) into yest;
-delete from reservation where date_of_travel = yest;
-end //
-delimiter ;
-*/
