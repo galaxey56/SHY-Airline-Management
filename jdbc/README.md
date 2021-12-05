@@ -1,18 +1,9 @@
-## Getting Started
+OOPS MINI PROJECT
+SHY Airline Management System, that allows you to search,book,cancel your flights.
 
-Welcome to the VS Code Java world. Here is a guideline to help you get started to write Java code in Visual Studio Code.
-
-## Folder Structure
-
-The workspace contains two folders by default, where:
-
-- `src`: the folder to maintain sources
-- `lib`: the folder to maintain dependencies
-
-Meanwhile, the compiled output files will be generated in the `bin` folder by default.
-
-> If you want to customize the folder structure, open `.vscode/settings.json` and update the related settings there.
-
-## Dependency Management
-
-The `JAVA PROJECTS` view allows you to manage your dependencies. More details can be found [here](https://github.com/microsoft/vscode-java-dependency#manage-dependencies).
+Our Team(group no.13)
+Satya Venkata Kiran Patnala,S20200010164
+Samyak Bansal,S20200010186
+Yash Gupta,S20200010234
+Harshini Sai Mandala,S20200010119
+Harini Padige,S20200010157

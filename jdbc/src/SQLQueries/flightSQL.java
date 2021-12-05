@@ -22,7 +22,7 @@ public class flightSQL {
         cstmt.setString(4, departure);
         cstmt.setString(5, arrival);
         ResultSet rs = cstmt.executeQuery();
-        Helper.pagination(Helper.makeList(rs), 1, flightDetailsWithADDCount(arrival, departure, date));
+        Helper.printing(Helper.makeList(rs), 1, flightDetailsWithADDCount(arrival, departure, date));
         System.out.println("Ticket fare may change based on date of booking");
     }
 
@@ -115,39 +115,44 @@ public class flightSQL {
         executableQuery.setString(1, ticketNum);
         ResultSet rs = executableQuery.executeQuery();
         rs.next();
-        String s1=rs.getString(1);
-        String s2=rs.getString(2);
-        String s3=rs.getString(3);
-        String s4=rs.getString(4);
-        String s5=rs.getString(5);
-        String s6=rs.getString(6);
-        String s7=rs.getString(7);
-        int s9=rs.getInt(9);
-        String s11=rs.getString(11);
-        String s12=rs.getString(12);
-        String s13=rs.getString(13);
-        String s14=rs.getString(14);
-        String s15=rs.getString(15);
+        String s1 = rs.getString(1);
+        String s2 = rs.getString(2);
+        String s3 = rs.getString(3);
+        String s4 = rs.getString(4);
+        String s5 = rs.getString(5);
+        String s6 = rs.getString(6);
+        String s7 = rs.getString(7);
+        int s9 = rs.getInt(9);
+        String s11 = rs.getString(11);
+        String s12 = rs.getString(12);
+        String s13 = rs.getString(13);
+        String s14 = rs.getString(14);
+        String s15 = rs.getString(15);
+        String x = "Luggage allowed :-";
         if (s11.equals("E")) {
-            s11="Economy Class";
+            s11 = "Economy Class";
+            x += "CheckIn: 15 + Hand: 7";
         } else if (s11.equals("B")) {
-            s11="Business Class";
+            s11 = "Business Class";
+            x += "CheckIn: 25 + Hand: 8";
         } else if (s11.equals("F")) {
-            s11="First Class";
-            
+            s11 = "First Class";
+            x += "CheckIn: 30 + Hand: 10";
+
         }
         /* hmm galaxy u need to do something here dont forget */
         System.out.println("************************************************************************");
-        System.out.println("<<<<<<<<<<<<<<<<<<<<<+"+s1+">>>>>>>>>>>>>>>>>>>>>>>>");
-        System.out.println("Flight No."+s5);
-        System.out.println("Ticket No."+s6);
-        System.out.println("Seat No."+s9);
-        System.out.println(s2+","+s4+","+s3);
-        System.out.println("Economy Class");
-        System.out.println(s14+" to "+s15);
-        System.out.println("Date:-"+s7);
-        System.out.println("Departure Time:-"+s12);
-        System.out.println("Arrival Time:-"+s13);
+        System.out.println("<<<<<<<<<<<<<<<<<<<<<" + s1 + ">>>>>>>>>>>>>>>>>>>>>>>>");
+        System.out.println("Flight No." + s5);
+        System.out.println("Ticket No." + s6);
+        System.out.println("Seat No." + s9);
+        System.out.println(s2 + "," + s4 + "," + s3);
+        System.out.println(s11);
+        System.out.println(s14 + " to " + s15);
+        System.out.println("Date of travel:-" + s7);
+        System.out.println("Departure Time:-" + s12);
+        System.out.println("Arrival Time:-" + s13);
+        System.out.println(x);
         System.out.println("ALL PASSENGERS ARE ADVISED TO REACH AIRPORT 2 HR PRIOR TO DEPARTURE TIME");
         System.out.println("************************************************************************");
 
@@ -175,6 +180,7 @@ public class flightSQL {
         int ref = rs.getInt(1);
         return ref;
     }
+
     private static int checkTotal(String flightNum, String date, String ticketClass) throws SQLException {
         Connection need = ConnectionEst.establishConnection();
         String query = "select count(*) from reservation where flight_no = ? and date_of_travel = ? and ticketClass = ?";
@@ -221,7 +227,7 @@ public class flightSQL {
         return ref;
     }
 
-    public static void displayAllPassengersOfFlight(String flightNum, String date) throws Exception {
+    public static void displayAllPassengersOfFlight(String flightNum, String date, int page) throws Exception {
         Connection need = ConnectionEst.establishConnection();
         String query = "select R.Ticket_no , Seat_number , Name , Gender, TicketClass from reservation R,Passenger P where R.ticket_no = P.ticket_no and R.flight_no = ? and R.date_of_travel = ?";
         PreparedStatement stmt = need.prepareStatement(query);
@@ -230,18 +236,17 @@ public class flightSQL {
         ResultSet rs = stmt.executeQuery();
         int ans = Helper.getCount(rs);
         ResultSet re = stmt.executeQuery();
-        Helper.pagination(Helper.makeList(re), 1, ans);
+        Helper.simpleTable(Helper.returnDoubleArray(re, page, ans), page, ans);
     }
 
-    public static void displayAllFlights(int page) throws Exception{
+    public static void displayAllFlights(int page) throws Exception {
         Connection need = ConnectionEst.establishConnection();
         String query = "select * from flight";
         PreparedStatement stmt = need.prepareStatement(query);
         ResultSet rs = stmt.executeQuery();
         int ans = Helper.getCount(rs);
         ResultSet rs1 = stmt.executeQuery();
-        Helper.pagination(Helper.makeList(rs), page, ans);
-
+        Helper.simpleTable(Helper.returnDoubleArray(rs1, page, ans), page, ans);
 
     }
 

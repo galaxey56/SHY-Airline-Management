@@ -2,7 +2,7 @@ package FlightSystem;
 abstract public class Flight {
     protected String flightNumber;
     protected String airline;
-    protected int Capacity = 60;
+    protected int Capacity;
 
     public String getFlightNumber() {
         return flightNumber;

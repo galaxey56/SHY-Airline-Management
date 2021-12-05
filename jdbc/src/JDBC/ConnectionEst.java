@@ -12,7 +12,7 @@ public class ConnectionEst {
     public static Connection establishConnection() throws SQLException{
         Connection conn = null;
         try{
-            Class.forName("com.mysql.jdbc.Driver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
             Properties props = new Properties();
             props.put("user", USERNAME);
             props.put("password", PASSWORD);

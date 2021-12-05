@@ -129,10 +129,9 @@ public class passengerSQL {
         PreparedStatement runIt = need.prepareStatement(query);
         runIt.setInt(1, age);
         ResultSet rs = runIt.executeQuery();
-        int pageNum = page;
         int total = Helper.getCount(rs);
         ResultSet result = runIt.executeQuery();
-        Helper.pagination(Helper.makeList(result), pageNum, total);
+        Helper.simpleTable(Helper.returnDoubleArray(result, page, total), page, total);
     }
 
     public static void updateTicketNum(String ticket, int id) throws SQLException {
@@ -155,7 +154,7 @@ public class passengerSQL {
         else
             pageNum = Integer.parseInt(args[2]);
         // Helper.pagination(Helper.makeList(rs), pageNum, getTottalNumOfPassengers());
-        Helper.simpleTable(Helper.returnDoubleArray(rs, getTottalNumOfPassengers()));
+        Helper.simpleTable(Helper.returnDoubleArray(rs, pageNum, getTottalNumOfPassengers()), pageNum, getTottalNumOfPassengers());
     }
 
     public static void update(String args[]) throws SQLException {

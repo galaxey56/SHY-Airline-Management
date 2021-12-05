@@ -13,7 +13,7 @@ public class ReservationTable {
                 flightSQL.deleteReservation(args[2]);
                 break;
             case "-fl":
-                flightSQL.displayAllPassengersOfFlight(args[2], args[3]);
+                flightSQL.displayAllPassengersOfFlight(args[2], args[3], Integer.parseInt(args[4]));
                 break;
             default:
                 System.out.println("Wrong Format!! :)");
