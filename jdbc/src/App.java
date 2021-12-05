@@ -16,20 +16,34 @@ public class App {
     public static void printPassengerCommands() {
         System.out.println("Passenger Commands Syntax");
         System.out.println("------------------------------------------------------------------");
-        System.out.println("Adding a passenger: \n-p -ap name gender(M/F/N) age email phoneNum");
+        System.out.println("Adding a passenger: \n-p -ap name gender(M/F/N) dob email phoneNum");
+        System.out.println("------------------------------------------------------------------");
         System.out.println("Display all passengers: \n-p -dp Page_num(pagination)");
+        System.out.println("------------------------------------------------------------------");
         System.out.println("Search a passenger with name: \n-p -np name");
+        System.out.println("------------------------------------------------------------------");
         System.out.println("Search a passenger with ID: \n-p -idp ID");
+        System.out.println("------------------------------------------------------------------");
         System.out.println("Search a passenger with Email: \n-p -ep email");
+        System.out.println("------------------------------------------------------------------");
         System.out.println("Search a passenger with Phone Number: \n-p -pp phone_no.");
+        System.out.println("------------------------------------------------------------------");
         System.out.println("Search a passenger with Ticket Number: \n-p -tnp Ticket_No.");
+        System.out.println("------------------------------------------------------------------");
         System.out.println("Search an adult passenger with age>18: \n-p -aa Page_num(pagination)");
+        System.out.println("------------------------------------------------------------------");
         System.out.println("Update passenger's name : \n-p -u -n Passenger's ID");
+        System.out.println("------------------------------------------------------------------");
         System.out.println("Update passenger's gender : \n-p -u -g Passenger's ID");
+        System.out.println("------------------------------------------------------------------");
         System.out.println("Update passenger's email : \n-p -u -e Passenger's ID");
+        System.out.println("------------------------------------------------------------------");
         System.out.println("Update passenger's phone_num : \n-p -u -p Passenger's ID");
+        System.out.println("------------------------------------------------------------------");
         System.out.println("Update passenger's age : \n-p -u -a Passenger's ID");
+        System.out.println("------------------------------------------------------------------");
         System.out.println("Delete a passenger : \n-p -d Passenger's ID");
+        System.out.println("------------------------------------------------------------------");
 
     }
 
@@ -39,7 +53,7 @@ public class App {
         System.out.println(
                 "Search a Flight with Flight ID and Date of travel: \n-f -d Flight_ID Date_of_Travel(YYYY-MM-DD");
         System.out.println(
-                "Search a Flight with Departure City, Arrival City, Date of travel, Depa: \n-f -s Departure_City Arrival_City Date_of_Travel(YYYY-MM-DD");
+                "Search a Flight with Departure City, Arrival City, Date of travel: \n-f -s Departure_City Arrival_City Date_of_Travel(YYYY-MM-DD)");
         System.out.println("Display all flight details: \n-f -a Page_num(pagination)");
     }
     public static void printReservationCommands(){
