@@ -154,7 +154,8 @@ public class passengerSQL {
             pageNum = 0;
         else
             pageNum = Integer.parseInt(args[2]);
-        Helper.pagination(Helper.makeList(rs), pageNum, getTottalNumOfPassengers());
+        // Helper.pagination(Helper.makeList(rs), pageNum, getTottalNumOfPassengers());
+        Helper.simpleTable(Helper.returnDoubleArray(rs, getTottalNumOfPassengers()));
     }
 
     public static void update(String args[]) throws SQLException {

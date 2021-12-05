@@ -24,7 +24,6 @@ public class travelFlight extends Flight {
         this.price = price;
     }
     public static travelFlight convert(ResultSet rs) throws SQLException{
-        // rs.next();
         if(!rs.next()){
             System.out.println("Flight not found");
         }
