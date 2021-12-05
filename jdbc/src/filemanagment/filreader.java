@@ -26,7 +26,6 @@ public class filreader {
 
             Passenger.setTotalPassengers();
             Path path = Paths.get(filename);
-            System.out.println(Files.exists(path));
             if (Files.exists(path)) {
                 List<String> lines = Files.readAllLines(path);
                 for (String line : lines) {
