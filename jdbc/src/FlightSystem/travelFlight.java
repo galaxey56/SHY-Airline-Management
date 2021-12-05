@@ -42,6 +42,9 @@ public class travelFlight extends Flight {
             case "-dd":
                 flightSQL.getFlightDetails(args[2], args[3]);            //Flight details with date and displayin capacity left
                 break;
+            case "-a":
+                flightSQL.displayAllFlights(Integer.parseInt(args[2]));
+                break;
             default:
                 System.out.println("Wrong Format!! :)");
         }

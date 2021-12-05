@@ -28,9 +28,7 @@ public class App {
         System.out.println("------------------------------------------------------------------");
         System.out.println("Search a passenger with Phone Number: \n-p -pp phone_no.");
         System.out.println("------------------------------------------------------------------");
-        System.out.println("Search a passenger with Ticket Number: \n-p -tnp Ticket_No.");
-        System.out.println("------------------------------------------------------------------");
-        System.out.println("Search an adult passenger with age>18: \n-p -aa Page_num(pagination)");
+        System.out.println("Search a passenger with Ticket Number: \n-p -tnp Ticket_No.");  
         System.out.println("------------------------------------------------------------------");
         System.out.println("Update passenger's name : \n-p -u -n Passenger's ID");
         System.out.println("------------------------------------------------------------------");
@@ -44,6 +42,7 @@ public class App {
         System.out.println("------------------------------------------------------------------");
         System.out.println("Delete a passenger : \n-p -d Passenger's ID");
         System.out.println("------------------------------------------------------------------");
+        System.out.println("Search passengers with age greater than certain number: \n -p -grt age pageNum");
 
     }
 

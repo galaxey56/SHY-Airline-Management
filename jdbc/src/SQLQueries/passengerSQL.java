@@ -123,16 +123,13 @@ public class passengerSQL {
         Passenger p = Passenger.makePassenger(ans);
         System.out.println(p.toString());
     }
-    public static void searchAdultPassenger(String[] args) throws Exception{
+    public static void searchAdultPassenger(int page, int age) throws Exception{
         Connection need = ConnectionEst.establishConnection();
-        String query="";//samyak add sql query Here
+        String query= "select * from passenger p where (date_format(from_days(datediff(curdate(), p.dob)),'%y') + 0) > ?";
         PreparedStatement runIt = need.prepareStatement(query);
+        runIt.setInt(1, age);
         ResultSet rs = runIt.executeQuery();
-        int pageNum;
-        if (args[2] == null)
-            pageNum = 0;
-        else
-            pageNum = Integer.parseInt(args[2]);
+        int pageNum = page;
         int total = Helper.getCount(rs);
         ResultSet result = runIt.executeQuery();
         Helper.pagination(Helper.makeList(result), pageNum, total);

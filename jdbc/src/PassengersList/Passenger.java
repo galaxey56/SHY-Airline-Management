@@ -139,8 +139,8 @@ public class Passenger {
         case "-tnp":
             passengerSQL.searchWithTicket(args[2]);
             break;
-        case "aa":
-            // passengerSQL.searchAdultPassenger(args[2]);
+        case "-grt":
+            passengerSQL.searchAdultPassenger(Integer.parseInt(args[3]), Integer.parseInt(args[2]));
             break;
         case "-u":
             passengerSQL.update(args);
