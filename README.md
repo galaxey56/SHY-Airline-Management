@@ -1,3 +1,4 @@
-# jdbc_trials
-<p>Dont merge anything into repo without asking others</p>
-<p>Samyak - ok</p>
+# SHY-Airline-Management
+A user interface for passengers who wants to book tickets for their Flight journeys
+Built using java
+Feel free to contribute
